@@ -1,6 +1,6 @@
 # Tiralabra
 
-Luolastoreitinhaku ja A*- ja JSP-algoritmien vertailu
+A*- ja JSP-algoritmien vertailu luolastoreitinhaussa
 
 ## Dokumentaatio
 * [Määrittelydokumentti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/maarittelydokumentti.md)
