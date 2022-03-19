@@ -10,4 +10,6 @@ Lauantaina loin projektille Github-repositoryn ja tein tarvittavia alustustöit�
 
 On vaikea arvioida paljon viikon aikana olen projektiin käyttänyt aikaa, kun sitä on käyttänyt erilaisiin aiheisiin ja niissä mahdollisesti hyödynnettäviin rajapintoihin tai kirjastoihin tutustumiseen ja ajatustasolla mahdollisten projektiaiheiden suunnitteluun. Myös varsinaista jotain konkreettista aikaansaavaa työtä on tullut tehtyä projektin alustuksessa ja dokumentaation luonnissa. Kurssisivuunkin tuli tässä sivussa tutustuttua. Laitoin työtuntikirjanpitoon suuntaa-antavat tuntimäärät, jotka vastaavat lauantain osalta konkreettiseen työhön käytettyä aikaa ja ke - pe osalta pohtimiseen, perehtymiseen ja vatvomiseen sekä Zoom-sessioihin käytettyä aikaa, vaikka saattoi sitä pohtimista ja vatvomista olla enemmämmänkin.
 
+Seuraavalla viikolla lähden tutustumaan toteutettaviin algoritmeihin toteuttamaan reitinhaun visuaalisointia.
+
 Käytetty aika: noin 8 h
