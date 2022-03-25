@@ -1,10 +1,19 @@
-from PIL import Image
+from services.kuvanpiirtaja import Kuvanpiirtaja
+from services.algoritmi import a_tahti
 
 class Ui:
+    """Ohjelman käyttöliittymä. Käyttöliittymä kehittynee kurssin edetessä.
+    Vaikka kerkesin jo hieman tutkia Pillow-kirjastoa ja suunnitella kartta-
+    reittien piirtämistä, ajattelin kuitenkin tehdä aluksi pelkästään komento-
+    riviltä suoritettavan ja ASCII-visualisoidun käyttöliittymän.
+    """
     def __init__(self):
+        #self.kuvanpiirtaja = Kuvanpiirtaja()
         pass
 
-    def start():
+    def aloita(self):
+        #self.kuvanpiirtaja.piirra()
+        a_tahti((0,0), (4,3))
         pass
 
-default_ui = Ui()
+vakio_ui = Ui()

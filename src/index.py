@@ -1,8 +1,8 @@
-from ui.ui import defaul_ui
+from ui.ui import vakio_ui
 
 def main():
-    ui = defaul_ui
-    ui.start()
+    ui = vakio_ui
+    ui.aloita()
 
 if __name__ == "__main__":
     main()
