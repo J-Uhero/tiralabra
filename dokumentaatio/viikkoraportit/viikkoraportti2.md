@@ -8,6 +8,8 @@ Olin luonut luonnostellut ohjelman repositioon tiedostorakennetta, mutta kuvien 
 
 Lopulta pienen debuggaamisen ja keyerror-virheiden korjailun jälkeen sain algoritmin toimimaan. Siihen tuli jonkun verran toistoa, miettiessäni miten kannattaa toteuttaa g-arvon vaihteleva lisäys yhden ja neliöjuuri kahden välillä. Mietin, haittaako tässä yhteydessä kuinka paljon toisteinen koodi, ei-kuvaavat muuttujien nimet tai funktiokutsut, kun tarkoitus olisi saada algoritmi toimimaan tehokkaasi. Ehkä tästä täytyy vielä kysellä. Käytin testidatana pieniä, itse näpyttelemiäni matriiseja, jotta pääsin tutkimaan algoritmin oikeellisuutta ja näkemään jotain visualisointia.  Tunteja tuli päivän aikana aika paljon eli noin 9,5 työskenneltyäni aamupäivästä iltaan asti, mutta olin tyytyväinen saadessani toisesta algoritmistani toimivan version valmiiksi.
 
+Lähteet A*-algoritmiin tutustumisessa olen lisännyt ![toteutusdokumenttiin](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/toteutusdokumentti.md).
+
 Lauantaina keskeisenä tekemisen kohteena oli algoritmin ja muun ohjelmakoodin kommentointi, testaus ja kaikki muu palautukseen liittyvä.  Käytyäni kommentoinnissa läpi algoritmin toimintaa tuntui se jo selvältä, eikä mitään tarvinnut alkaa tarkastamaan pseudokoodista tai muista lähteistä. Tein projektiin liittyviä ohtelta ja ohtulta tuttuja konfigurointiasioita, kuten koodin siisteyden tarkistamista pylintillä, testikattavuuden mittaamista ja raportointia codecov:n ja GitHub Actionsin avulla. Pylintin läpikäynnin jälkeen tein koodiin muutoksia ja tein tietenkin testejä testikattavuuden mittaamiseen. Koodin ulkoasuun liitettävät seikat mietityttivät, kuten toisteisen koodin ja liian lyhyiden muuttujien käyttö. Lyhyet muuttujannimet kuten f, g ja h tuntuivat tämän algoritmin yhteydessä perustelluilta ja mietin, hidastaakohan pitkät muuttujanimet algoritmin toimintaa kuinka paljon ja olisiko tärkeää saada ohjelmakoodi mahdollisimman ymmärrettäväksi ja helposti lähestyttäväksi, mitä tein toisaalta omalla koodin kommentoinnillani.
 
 Varsinaista monipuolista käyttöliittymää en tämän viikon palautukseen saa luotua, mutta ajattelin, että tässä vaiheessa on keskeistä varsinainen ohjelman eli tässä tapauksessa algoritmin toiminnallisuus. Tein kuitenkin kahden kartan ASCII-visualisoinnin ohjelman ajamisen yhteydessä, joka ajaa tässä vaiheessa käyttöliittymän virkaa.
@@ -16,4 +18,4 @@ Varsinaista monipuolista käyttöliittymää en tämän viikon palautukseen saa 
 
 Seuraavalla viikolla aion koittaa tutustua JSP-algoritmiin ja mahdollisesti saada kuvien käsittely- ja visualisointipuolta eteenpäin.
 
-Lisäksi tietysti käytin lauantaina aikaa dokumentoinnin ja viikkoraportin kirjoittamiseen. 
+Lisäksi tietysti käytin lauantaina aikaa dokumentointiin ja viikkoraportin kirjoittamiseen. Aikaa kului yhteensä noin 7 tuntia.
