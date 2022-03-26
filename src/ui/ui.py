@@ -1,5 +1,5 @@
 from services.kuvanpiirtaja import Kuvanpiirtaja
-from services.algoritmi import a_tahti
+from services.algoritmi import a_tahti, tarkista_koordinaatit
 
 class Ui:
     """Ohjelman käyttöliittymä. Käyttöliittymä kehittynee kurssin edetessä.
@@ -14,6 +14,5 @@ class Ui:
     def aloita(self):
         #self.kuvanpiirtaja.piirra()
         a_tahti((0,0), (4,3))
-        pass
 
 vakio_ui = Ui()

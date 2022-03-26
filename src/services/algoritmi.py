@@ -19,7 +19,9 @@ koord_lisaykset_1 = [(0,-1), (0,1), (-1,0), (1,0)]
 koord_lisaykset_sqrt2 = [(-1,-1), (-1,1), (1,-1), (1,1)]
 
 def reitti(edeltajat, solmu):
-    """haetaan algoritmin reitti edeltajat-hajautustaulusta"""
+    """haetaan algoritmin reitti edeltajat-hajautustaulusta
+    päätesolmun avulla
+    """
     r = [solmu]
     while solmu in edeltajat.keys():
         solmu = edeltajat[solmu]
@@ -27,6 +29,7 @@ def reitti(edeltajat, solmu):
     return r
 
 def luo_reittimatriisi(m, reitti):
+
     uusi_m = list(m)
     for k in reitti:
         uusi_m[k[1]][k[0]] = 2
@@ -37,11 +40,30 @@ def tulosta_matriisi(m):
         print(m[i])
 
 def h_arvot(mista, minne):
-    """h-arvo lasketaan suorana etäisyytenä päätepisteeseen pythagoran lauseella
+    """H-arvo lasketaan suorana etäisyytenä päätepisteeseen pythagoran
+    lauseen avulla. H-arvo kertoo arvion, mikä voisi olla jäljellä olevan
+    reitin pituus nykyisestä solmusta käsin ja on tässä tapauksessa
+    täysin suora reitti.
     """
+
     return math.sqrt((mista[0]-minne[0])**2 + (mista[1]-minne[1])**2)
 
 def tarkista_koordinaatit(solmu, m, koord_lisaykset):
+    """A*-algoritmin hyödyntämä funktio tarkistamaan,
+    mihin solmuihin/pisteisiin nykyisestä solmusta/pisteestä
+    voi siirtyä. Etsii joko sivuttaiset tai kulmittaiset solmut/pikselit.
+
+    Args:
+        solmu (tuple): nykyinen solmu (x,y)-muodossa.
+        m (list): matriisi solmuista eli lista listoja
+        koord_lisaykset (list): lista lisäyksistä koordinaatteihin
+        riippuen, haetaanko sivuttaiset vai kulmittaiset solmut.
+
+    Palautus:
+        lista: lista (x,y)-tuplekoordinaatteja kuvaten siirryttäviä
+        solmuja.
+    """
+
     p = []
     for k in koord_lisaykset:
         uusi = (k[0]+solmu[0], k[1]+solmu[1])
@@ -53,35 +75,61 @@ def tarkista_koordinaatit(solmu, m, koord_lisaykset):
 def a_tahti(mista, minne, h=h_arvot, m=m1):
     """A*-algoritmi. Näyttäisi toimivan nyt oikein.
     Vaatinee vielä optimointia ja toisteisen koodin siismistä
+
+    Args:
+        mista (tuple): (x,y)-muodossa lähtöpiste/-solmu
+        minne (tuple): (x,y)-muodossa kohdepiste/-solmu
+        h (funktio): Funktio, jolla lasketaan h-arvo. Oletuksena h_arvot.
+        m (list): matriisi eli lista listoja, jotka kuvaavat kartastoa ja
+        sen pisteitä. Oletuksena m1.
+
+    Palauttaa:
+        Reitti-funktion, ja sen palautusarvot, jos reitti löydetään tai None,
+        jos reittiä ei löydetä.
     """
+
     keko = []
-    heappush(keko, (0, mista)) #(f-arvo, (x,y))
-    edeltajat = {}
-    g = {}
-    g[mista] = 0
-    f = {}
-    f[mista] = h(mista, minne)
-    sqrt2 = math.sqrt(2)
+        # alustetaan keko, johon tallennetaan tarkasteltavat solmut, niin että
+        # pienimmän f-arvon solmu otetaan sieltä aina seuraavana tarkasteluun
+    heappush(keko, (0, mista)) # lähtösolmun alustus muotoa: (f-arvo, (x,y))
+    edeltajat = {}  # hajautustaulu solmujen edeltäjäsolmujen talletusta varten
+    g = {} # talletettavat g-arvot
+    g[mista] = 0 # alkusolmun g-arvo eli 0
+    f = {} # talletettavat f-arvot
+    f[mista] = h(mista, minne) # alkusolmun f-arvo eli 0 + h-arvo
+    sqrt2 = math.sqrt(2)    # neliöjuuri 2 valmiina muuttujassa
 
     while len(keko) > 0:
-        nyk = heappop(keko)
-        print(nyk)
-        if nyk[1] == minne:
+        nyk = heappop(keko) # nykyinen solmu on keon seuraava solmu
+        if nyk[1] == minne: # tarkastetaan, onko määränpää-solmu saavutettu
             return reitti(edeltajat, minne)
+                # palautetaan reitti-funktio, joka palauttaa lyhimmän reitin
 
         for seur_k in tarkista_koordinaatit(nyk[1], m, koord_lisaykset_1):
-            mahd_g = g[nyk[1]] + 1
-            if seur_k not in g.keys():
-                g[seur_k] = math.inf
+            # tarkistetaan mahdolliset seuraajasolmujen koordinaatit ja
+            # käydään ne yksittäin läpi. solmun etäisyys on tässä for-silmukassa 1
+            mahd_g = g[nyk[1]] + 1 # seuraavan solmun mahdollinen g-arvo
+            if seur_k not in g.keys():  # alustetaan uusien solmujen vertailtavaksi
+                g[seur_k] = math.inf    # g-arvoksi (etäisyys lähtösolmusta) inf
             if mahd_g < g[seur_k]:
+                # tehdään vertailu, onko jo löydetty g-arvo suurempi kuin uusi, jolloin
+                # uusi arvo halutaan vaihtaa vanhan tilalle
                 g[seur_k] = mahd_g
+                # aiempi mahdollinen g-arvo vaihdetaan nykyiseksi, jos se oli pienempi eli
+                # solmuun löydettiin lyhyempi reitti
                 f_arvo = mahd_g + h(seur_k, minne)
-                f[seur_k] = f_arvo
-                edeltajat[seur_k] = nyk[1]
-                if (f_arvo, seur_k) not in keko:
+                # f = g + h eli f-arvo on jo löydetty reitti + oletettu jäljellä oleva reitti
+                f[seur_k] = f_arvo  # asetetaan solmun f-arvo f-taulukkoon
+                edeltajat[seur_k] = nyk[1] # talletetaan uudensolmun edeltäjäsolmu muistiin
+                if (f_arvo, seur_k) not in keko: 
                     heappush(keko, (f_arvo, seur_k))
+                    # solmu laitetaan kekoon, josta pääsilmukassa otetaan solmuja pienimmän
+                    # f-arvon mukaan.
 
         for seur_k in tarkista_koordinaatit(nyk[1], m, koord_lisaykset_sqrt2):
+            # tässä for-silmukassa toteutetaan samat asiat kuin aiemmassa, mutta tarkasteltavat
+            # solmus ovat kulmikkaisia nykysolmuun nähden, jolloin reitin etäisyys kasvaa
+            # yhden sijaan neliöjuuri kahdella. 
             mahd_g = g[nyk[1]] + sqrt2
             if seur_k not in g.keys():
                 g[seur_k] = math.inf
@@ -92,4 +140,4 @@ def a_tahti(mista, minne, h=h_arvot, m=m1):
                 edeltajat[seur_k] = nyk[1]
                 if (f_arvo, seur_k) not in keko:
                     heappush(keko, (f_arvo, seur_k))
-    return None
+    return None # palautus, jos reittiä ei löytynyt tarkasteltavien solmujen loppuessa kesken
