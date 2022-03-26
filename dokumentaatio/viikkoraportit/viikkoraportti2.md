@@ -10,6 +10,10 @@ Lopulta pienen debuggaamisen ja keyerror-virheiden korjailun jälkeen sain algor
 
 Lauantaina keskeisenä tekemisen kohteena oli algoritmin ja muun ohjelmakoodin kommentointi, testaus ja kaikki muu palautukseen liittyvä.  Käytyäni kommentoinnissa läpi algoritmin toimintaa tuntui se jo selvältä, eikä mitään tarvinnut alkaa tarkastamaan pseudokoodista tai muista lähteistä. Tein projektiin liittyviä ohtelta ja ohtulta tuttuja konfigurointiasioita, kuten koodin siisteyden tarkistamista pylintillä, testikattavuuden mittaamista ja raportointia codecov:n ja GitHub Actionsin avulla. Pylintin läpikäynnin jälkeen tein koodiin muutoksia ja tein tietenkin testejä testikattavuuden mittaamiseen. Koodin ulkoasuun liitettävät seikat mietityttivät, kuten toisteisen koodin ja liian lyhyiden muuttujien käyttö. Lyhyet muuttujannimet kuten f, g ja h tuntuivat tämän algoritmin yhteydessä perustelluilta ja mietin, hidastaakohan pitkät muuttujanimet algoritmin toimintaa kuinka paljon ja olisiko tärkeää saada ohjelmakoodi mahdollisimman ymmärrettäväksi ja helposti lähestyttäväksi, mitä tein toisaalta omalla koodin kommentoinnillani.
 
-Varsinaista monipuolista käyttöliittymää en tämän viikon palautukseen saa luotua, mutta ajattelin, että tässä vaiheessa on keskeistä varsinainen ohjelman eli tässä tapauksessa algoritmin toiminnallisuus. Seuraavalla viikolla aion koittaa tutustua JSP-algoritmiin ja mahdollisesti saada kuvien käsittely- ja visualisointipuolta eteenpäin.
+Varsinaista monipuolista käyttöliittymää en tämän viikon palautukseen saa luotua, mutta ajattelin, että tässä vaiheessa on keskeistä varsinainen ohjelman eli tässä tapauksessa algoritmin toiminnallisuus. Tein kuitenkin kahden kartan ASCII-visualisoinnin ohjelman ajamisen yhteydessä, joka ajaa tässä vaiheessa käyttöliittymän virkaa.
+
+![Viikon 2 UI-näkymä](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/viikon2-ui-nakyma.png)
+
+Seuraavalla viikolla aion koittaa tutustua JSP-algoritmiin ja mahdollisesti saada kuvien käsittely- ja visualisointipuolta eteenpäin.
 
 Lisäksi tietysti käytin lauantaina aikaa dokumentoinnin ja viikkoraportin kirjoittamiseen. 
