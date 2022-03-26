@@ -10,6 +10,7 @@ A*- ja JSP-algoritmien vertailu reitinhaussa
 * [Testausdokumentti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/testausdokumentti.md)
 * [Toteutusdokumentti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/toteutusdokumentti.md)
 * [Työaikakirjanpito](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/tyoaikakirjanpito.md)
+* [Käyttöohje](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kayttoohje.md)
 
 ## Viikkoraportit
 * [Viikkoraportti 1](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/viikkoraportit/viikkoraportti1.md)
