@@ -22,11 +22,11 @@ def reitti(edeltajat, solmu):
     """haetaan algoritmin reitti edeltajat-hajautustaulusta
     päätesolmun avulla
     """
-    r = [solmu]
+    reitti = [solmu]
     while solmu in edeltajat.keys():
         solmu = edeltajat[solmu]
-        r = [solmu] + r
-    return r
+        reitti = [solmu] + reitti
+    return reitti
 
 def luo_reittimatriisi(m, reitti):
     """funktio uuden matriisin, jossa reitti näkyy, luomista varten
@@ -96,7 +96,7 @@ def a_tahti(mista, minne, h=h_arvot, m=m1):
         # pienimmän f-arvon solmu otetaan sieltä aina seuraavana tarkasteluun
     heappush(keko, (0, mista))
         # lähtösolmun alustus muotoa: (f-arvo, (x,y))
-    edeltajat = {} 
+    edeltajat = {}
         # hajautustaulu solmujen edeltäjäsolmujen talletusta varten
     g = {}
         # talletettavat g-arvot eli lyhimmän löydetty reittin pituus solmuun
@@ -107,13 +107,13 @@ def a_tahti(mista, minne, h=h_arvot, m=m1):
         # reitin pituudesta
     f[mista] = h(mista, minne)
         # alkusolmun f-arvo eli 0 + h-arvo
-    sqrt2 = math.sqrt(2)    
+    sqrt2 = math.sqrt(2)
         # neliöjuuri 2 valmiina muuttujassa
 
     while len(keko) > 0:
-        nyk = heappop(keko) 
+        nyk = heappop(keko)
             # nykyinen solmu on keon seuraava solmu pienimmällä f-arvolla
-        if nyk[1] == minne: 
+        if nyk[1] == minne:
             # tarkastetaan, onko määränpää-solmu saavutettu, jolloin
             # reitti on löydetty
             return reitti(edeltajat, minne)
@@ -125,7 +125,7 @@ def a_tahti(mista, minne, h=h_arvot, m=m1):
             # käydään ne yksittäin läpi. tarkasteltavat solmut ovat tässä
             # for-silmukassa nykyisen solmun sivujen myötäisiä ja niiden
             # etäisyys on näin ollen 1
-            mahd_g = g[nyk[1]] + 1 
+            mahd_g = g[nyk[1]] + 1
                 # seuraavan solmun mahdollinen g-arvo, kun solmu on sivuttain nykyiseen
             if seur_k not in g.keys():
                 g[seur_k] = math.inf
@@ -143,7 +143,7 @@ def a_tahti(mista, minne, h=h_arvot, m=m1):
                     # asetetaan solmun f-arvo f-taulukkoon
                 edeltajat[seur_k] = nyk[1]
                     # talletetaan seuraajasolmun edeltäjäsolmun koordinaatit muistiin
-                if (f_arvo, seur_k) not in keko: 
+                if (f_arvo, seur_k) not in keko:
                     heappush(keko, (f_arvo, seur_k))
                         # solmu laitetaan kekoon, josta pääsilmukassa otetaan solmuja
                         # pienimmän f-arvon mukaan.
@@ -151,7 +151,7 @@ def a_tahti(mista, minne, h=h_arvot, m=m1):
         for seur_k in tarkista_koordinaatit(nyk[1], m, koord_lisaykset_sqrt2):
             # tässä for-silmukassa toteutetaan samat asiat kuin aiemmassa, mutta tarkasteltavat
             # solmut ovat kulmikkain nykysolmuun nähden, jolloin reitin pituus kasvaa
-            # yhden sijaan neliöjuuri kahdella. 
+            # yhden sijaan neliöjuuri kahdella
             mahd_g = g[nyk[1]] + sqrt2
             if seur_k not in g.keys():
                 g[seur_k] = math.inf

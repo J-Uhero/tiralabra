@@ -1,6 +1,6 @@
+import os
 from PIL import Image, ImageDraw
 import numpy as np
-import os
 
 KUVA = "Boston_1_1024.png"
 
@@ -18,19 +18,19 @@ class Kuvanpiirtaja:
         polku = os.path.dirname(__file__)
         tiedosto = os.path.join(polku, "..", "data", tiedostonimi)
         self.kuva = Image.open(tiedosto)
-        self.piirra(0,0)
+        self.piirra((0,0))
 
     def luo_np_taulukko(self):
         """Luo Numpy-kirjastolla matriisin, mikäli haluan käyttää
         kyseistä kirjastoa apuna
         """
-        self.taulukko = np.array(self.img)
+        return np.array(self.kuva)
 
     def nayta(self):
         """Näytä kuva
         """
         self.kuva.show()
-    
+
     def kuvan_koko(self):
         """Palautetaan kuvan koko muodossa (x,y)
 
@@ -40,11 +40,11 @@ class Kuvanpiirtaja:
         return self.kuva.size()
 
     def piirra(self, pisteet):
-        """Piirretään kuvaan reitti koornitaattipisteiden avulla
+        """Piirretään kuvaan reitti koorditaattipisteiden avulla
 
         Args:
             pisteet (list): lista (x,y)-muotoisista koordinaattitupleista,
             joiden väliin reitti piirretään
         """
-        piirra = ImageDraw.Draw(self.img)
+        piirra = ImageDraw.Draw(self.kuva)
         piirra.line(pisteet, width=1, fill="red")

@@ -1,5 +1,4 @@
-from services.kuvanpiirtaja import Kuvanpiirtaja
-from services.algoritmi import a_tahti, tarkista_koordinaatit
+from services.algoritmi import a_tahti
 
 class Ui:
     """Ohjelman käyttöliittymä. Käyttöliittymä kehittynee kurssin edetessä.
