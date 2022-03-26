@@ -3,7 +3,7 @@
 ![GitHub Actions](https://github.com/J-Uhero/tiralabra/actions/workflows/main.yml/badge.svg)
 [![codecov](https://codecov.io/gh/J-Uhero/tiralabra/branch/main/graph/badge.svg?token=83LFBX05ZL)](https://codecov.io/gh/J-Uhero/tiralabra)
 
-A*- ja JSP-algoritmien vertailu luolastoreitinhaussa
+A*- ja JSP-algoritmien vertailu reitinhaussa
 
 ## Dokumentaatio
 * [Määrittelydokumentti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/maarittelydokumentti.md)
