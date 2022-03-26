@@ -1,20 +1,6 @@
 from heapq import heappop, heappush
 import math
 
-m1 = [
-    [0, 1, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0]
-    ]
-
-m2 = [
-    [0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 1, 1, 0, 0],
-    [0, 0, 0, 1, 0]
-    ]
-
 koord_lisaykset_1 = [(0,-1), (0,1), (-1,0), (1,0)]
 koord_lisaykset_sqrt2 = [(-1,-1), (-1,1), (1,-1), (1,1)]
 
@@ -27,20 +13,6 @@ def reitti(edeltajat, solmu):
         solmu = edeltajat[solmu]
         reitti = [solmu] + reitti
     return reitti
-
-def luo_reittimatriisi(m, reitti):
-    """funktio uuden matriisin, jossa reitti näkyy, luomista varten
-    """
-    uusi_m = list(m)
-    for k in reitti:
-        uusi_m[k[1]][k[0]] = 2
-    return uusi_m
-
-def tulosta_matriisi(m):
-    """funktio matriisin tulostamiseen
-    """
-    for i in range(len(m)):
-        print(m[i])
 
 def h_arvot(mista, minne):
     """h-arvo lasketaan suorana etäisyytenä päätepisteeseen pythagoran
@@ -75,7 +47,7 @@ def tarkista_koordinaatit(solmu, m, koord_lisaykset):
                 p.append(uusi)
     return p
 
-def a_tahti(mista, minne, h=h_arvot, m=m1):
+def a_tahti(mista, minne, m, h=h_arvot):
     """A*-algoritmi. Näyttäisi toimivan nyt oikein.
     Vaatinee vielä optimointia ja toisteisen koodin siismistä.
 
