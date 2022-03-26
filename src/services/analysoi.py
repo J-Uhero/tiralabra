@@ -11,4 +11,3 @@ class Analysoi:
 
 
 vakio_analysoi = Analysoi()
-        

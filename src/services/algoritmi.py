@@ -62,7 +62,7 @@ def tarkista_koordinaatit(solmu, m, koord_lisaykset):
         koord_lisaykset (list): lista lisäyksistä koordinaatteihin
         riippuen, haetaanko sivuttaiset vai kulmittaiset solmut.
 
-    Palautus:
+    Palauttaa:
         lista: lista (x,y)-tuplekoordinaatteja kuvaten siirryttäviä
         solmuja.
     """
