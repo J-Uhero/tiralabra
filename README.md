@@ -13,3 +13,4 @@ A*- ja JSP-algoritmien vertailu reitinhaussa
 
 ## Viikkoraportit
 * [Viikkoraportti 1](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/viikkoraportit/viikkoraportti1.md)
+* [Viikkoraportti 2](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/viikkoraportit/viikkoraportti2.md)
