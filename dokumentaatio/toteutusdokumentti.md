@@ -9,3 +9,7 @@ https://en.wikipedia.org/wiki/A*_search_algorithm
 https://www.geeksforgeeks.org/a-search-algorithm/
 
 https://www.youtube.com/watch?v=amlkE0g-YFU
+
+Haetun karttakuvan lähde:
+
+https://www.movingai.com/benchmarks/grids.html (Real-World Benchmarks)
