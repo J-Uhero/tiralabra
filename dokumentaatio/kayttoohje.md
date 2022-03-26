@@ -7,11 +7,11 @@ Tällä hetkellä ohjelman voi ajaa/käynnistää, mutta se ei muuta kuin tulost
 Siitä huolimatta, jos ohjelman haluaa käynnistää ja ajaa, se onnistuu näin:
 
 Ohjelman riippuvuudet saa asennettua komennolla
-'''bash
+```bash
 poetry install
-'''
+```
 
 Ohjelma käynnistetään komennolla 
-'''bash
+```bash
 poetry run invoke start
-'''
+```
