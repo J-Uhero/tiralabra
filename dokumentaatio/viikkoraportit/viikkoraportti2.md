@@ -18,4 +18,4 @@ Varsinaista monipuolista käyttöliittymää en tämän viikon palautukseen saa 
 
 Seuraavalla viikolla aion koittaa tutustua JSP-algoritmiin ja mahdollisesti saada kuvien käsittely- ja visualisointipuolta eteenpäin.
 
-Lisäksi tietysti käytin lauantaina aikaa dokumentointiin ja viikkoraportin kirjoittamiseen. Aikaa kului yhteensä noin 7 tuntia.
+Lisäksi tietysti käytin lauantaina aikaa dokumentointiin ja viikkoraportin kirjoittamiseen. Aikaa kului lauantaina yhteensä noin 7 tuntia, joten koko viikon tuntimääräksi tulee 16,5 h.
