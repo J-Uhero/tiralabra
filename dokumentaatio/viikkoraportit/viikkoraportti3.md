@@ -18,6 +18,6 @@ Tämän lisäksi lisäksi toisen viikon A*-algoritmissa löytyi myös toinen ong
 
 Muuten olen perjantaihin mennessä yrittänyt tutkia ja lukea JSP-algoritmista. Kurssimateriaalissa oleva alkuperäinen dokumentaatio algoritmista ei ole kaikkein helposti lähestyttävin, joten etsin myös muita lähteitä. Vastaan tuli myös erilaisia demonstraatioita A*-algoritmista, jotka saivat minut miettimään, olisiko kuitenkin parempi kuvata solmuja ja karttaa jolloin muulla tavalla kuin matriisina. Oma algoritmi tuntuu sekavalta.
 
-Varsinainen viikon ohjelmointityö on kuitenkin perjantaihin mennessä huonosti.
+Varsinainen viikon ohjelmointityö on kuitenkin perjantaihin mennessä edennyt huonosti. Visuaalisten demostrointien myötä olen kuitenkin mielestäni ainakin pääpiirteittäin ymmärtänyt, mistä JPS-algoritmissa on kysymys ja miten sen tulisi toimia. 
 
-(Linkkejä yms. Tähän)
+(Linkkejä lähteistä yms. tähän)
