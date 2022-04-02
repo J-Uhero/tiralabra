@@ -20,16 +20,16 @@ Varsinainen viikon ohjelmointityö on kuitenkin perjantaihin mennessä edennyt h
 
 Albertan yliopiston tietojenkäsittelytieteen professorin Nathan Sturtevantin Youtube-kanavalta löytyi hyviä havainnollistavia videoita reitinhakualgoritmien toiminnasta, joita katsoin: 
 
- ![Single Agent Search Video 39: Canonical Orderings on Grids, Sturtevant N., Youtube](https://www.youtube.com/watch?v=rskXf8kO5Lw)
- ![Single Agent Search Video 40: Jump Point Search and Other Algorithms Using Canonical Orderings, Sturtevant N., Youtube](https://www.youtube.com/watch?v=__ZLnTwYNPk)
+ * ![Single Agent Search Video 39: Canonical Orderings on Grids, Sturtevant N., Youtube](https://www.youtube.com/watch?v=rskXf8kO5Lw)
+ * ![Single Agent Search Video 40: Jump Point Search and Other Algorithms Using Canonical Orderings, Sturtevant N., Youtube](https://www.youtube.com/watch?v=__ZLnTwYNPk)
  
  Lisäksi löysin erilaisia nettiartikkeleita:
 
-![A Visual Explanation of Jump Point Search, Nathan Witmer](https://zerowidth.com/2013/a-visual-explanation-of-jump-point-search.html)
-![Jump Point Search: Fast A* Pathfinding for Uniform Cost Grids, Albert Hofkamp](https://www.gamedev.net/tutorials/programming/artificial-intelligence/jump-point-search-fast-a-pathfinding-for-uniform-cost-grids-r4220/)
-![Implementation of A*, Amit Patel](https://www.redblobgames.com/pathfinding/a-star/implementation.html)
+* ![A Visual Explanation of Jump Point Search, Nathan Witmer](https://zerowidth.com/2013/a-visual-explanation-of-jump-point-search.html)
+* ![Jump Point Search: Fast A* Pathfinding for Uniform Cost Grids, Albert Hofkamp](https://www.gamedev.net/tutorials/programming/artificial-intelligence/jump-point-search-fast-a-pathfinding-for-uniform-cost-grids-r4220/)
+* ![Implementation of A*, Amit Patel](https://www.redblobgames.com/pathfinding/a-star/implementation.html)
 
-Lisäksi oli vielä tämä kurssimateriaalista löytyvä Daniel Haraborin ja Alban Grastienin artikkeli ![Online Graph Pruning for Pathfinding on Grid Maps](https://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
+Lisäksi oli vielä tämä kurssimateriaalista löytyvä Daniel Haraborin ja Alban Grastienin artikkeli ![Online Graph Pruning for Pathfinding on Grid Maps](https://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf).
 
 Lisäilen näitä linkkejä ja lähteitä vielä täsmällisemmin esitettynä ja muotoiltuna toteutusdokumenttiin.
 
