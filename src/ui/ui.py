@@ -6,6 +6,7 @@ class Ui:
     reittien piirtämistä, ajattelin kuitenkin tehdä aluksi pelkästään komento-
     riviltä suoritettavan ja ASCII-visualisoidun käyttöliittymän.
     """
+
     def __init__(self):
         #self.kuvanpiirtaja = Kuvanpiirtaja()
         self.m1 = [
