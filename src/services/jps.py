@@ -1,12 +1,13 @@
 from heapq import heappop,heappush
 import math
 import time
-LASKURI = 0
 SIJAINNIT = []
 LISATYT = []
 
 class JPS:
-    """luokka JPS-algoritmille. Vaatii siistimistä debuggauksen jäljiltä ja siistimistä
+    """luokka JPS-algoritmille. Vaatii siistimistä debuggauksen jäljiltä ja hiomista.
+    löytää tällä hetkellä vain jump pointit, muttei palauta käännöskohtia diagonaalihausta
+    vaaka- ja pystyhauksi, mikäli niistä löytyy jump point.
     """
 
     def h_arvot(self, mista, minne):
@@ -40,7 +41,6 @@ class JPS:
         suunnat[alku] = [(1,-1), (1,0), (1,1), (0,1),
                          (-1,1), (-1,0), (-1,-1), (0,-1)]
         g = {}
-        f = {}
 
         heappush(keko, (self.h_arvot(alku,loppu), alku))
         g[alku] = 0
@@ -61,8 +61,8 @@ class JPS:
                                         korkeus,
                                         loppu,
                                         suunnat)
-           # self.piirra(SIJAINNIT)
-           # print(pisteet)
+            #self.piirra(SIJAINNIT)
+            #print(pisteet)
 
             for piste in pisteet:
 
@@ -97,11 +97,8 @@ class JPS:
         #print("uusi haku", solmu, suunta)
         x, y = solmu
         pisteet = []
-        u_suunnat = []
+
         while True:
-            if suunta != (0,0):
-                #print(x,y, " ", suunta)
-                SIJAINNIT.append((x,y))
             x1, y1 = x + suunta[0], y + suunta[1]
             x2, y2 = x1 + suunta[0], y1 + suunta[1]
             
@@ -112,9 +109,7 @@ class JPS:
 
             if x1 == loppu[0] and y1 == loppu[1]:
                 pisteet.append((x1,y1))
-                #print("jee", pisteet)
                 self.suunnan_sijoitus((x1,y1), (0,0), suunnat)
-                #print(pisteet)
                 return pisteet
                 # haku löysi maalisolmun, jolloin palautetaan löydetyt jump-pointit
                 # ja maalisolmu§    
@@ -131,15 +126,13 @@ class JPS:
                 # alimmalla rivillä, jos suunta alas (1)
 
                     if x1 > 0 and matriisi[y1][x1-1] and not matriisi[y2][x1-1]:
-                        print("1")
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (-1, suunta[1]), suunnat)
 
                     if x1 <= leveys and matriisi[y1][x1+1] and not matriisi[y2][x1+1]:
-                        print("2")
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (1, suunta[1]), suunnat)
-                    
+
 
             elif suunta[1] == 0:
                 #print("suunta y=0", x1, y1, suunta)
@@ -150,23 +143,20 @@ class JPS:
 
                     if y1 > 0 and matriisi[y1-1][x1] and not matriisi[y1-1][x2]:
                         #ylhäällä tilaa ja täyttyykö jp:n ehdot
-                        #print("1")
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (suunta[0], -1), suunnat)
 
                     if y1+1 < korkeus and matriisi[y1+1][x1] == 1 and matriisi[y1+1][x2] == 0:
                         #alhaalla tilaa ja täyttyykö jp:n ehdot
-                        #print("2")
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (suunta[0], 1), suunnat)
-                    
+
 
             else:
                 #diagonaalihaku
                 if matriisi[y1][x] and not matriisi[y][x1] and 0 <= y2 and y2 < korkeus:
                     if not matriisi[y2][x]:
                         pisteet.append((x1,y1))
-                        #u_suunnat.append((suunta[0], suunta[1]*(-1)))
                         self.suunnan_sijoitus((x1,y1), (suunta[0]*(-1), suunta[1]), suunnat)
                         #print("diag piste", x1, y1, "v", suunta, "u", (suunta[0]*(-1), suunta[1]))
                 
@@ -174,14 +164,7 @@ class JPS:
                     if not matriisi[y][x2]:
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (suunta[0], suunta[1]*(-1)), suunnat)
-                        #u_suunnat.append((suunta[0]*(-1), suunta[1]))
                         #print("diag piste2", x1, y1, "v", suunta, "u", (suunta[0], suunta[1]*(-1)))
-
-            if (x1,y1) not in suunnat.keys():
-                suunnat[(x1,y1)] = u_suunnat
-            else:
-                for s in u_suunnat: 
-                    suunnat[(x1,y1)].append(s)
             
             if suunta[0] != 0 and suunta[1] != 0:
                 pisteet += self.haku((x1,y1), (suunta[0],0), matriisi, leveys, korkeus, loppu, suunnat)

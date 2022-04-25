@@ -47,7 +47,7 @@ def tarkista_koordinaatit(solmu, m, koord_lisaykset):
                 p.append(uusi)
     return p
 
-def a_tahti(mista, minne, m, h=h_arvot):
+def a_star(mista, minne, m, h=h_arvot):
     """A*-algoritmi. Näyttäisi toimivan nyt oikein.
     Vaatinee vielä optimointia ja toisteisen koodin siismistä.
 
@@ -65,9 +65,10 @@ def a_tahti(mista, minne, m, h=h_arvot):
 
     keko = []
         # alustetaan keko, johon tallennetaan tarkasteltavat solmut, niin että
-        # pienimmän f-arvon solmu otetaan sieltä aina seuraavana tarkasteluun
+        # pienimmän f-arvon solmu otetaan sieltä aina seuraavana tarkasteluun.
+        # talletukset ovat siis muotoa: (f-arvo, (x,y))
     heappush(keko, (0, mista))
-        # lähtösolmun alustus muotoa: (f-arvo, (x,y))
+        # lähtösolmun alustus.
     edeltajat = {}
         # hajautustaulu solmujen edeltäjäsolmujen talletusta varten
     g = {}

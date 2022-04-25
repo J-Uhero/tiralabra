@@ -1,4 +1,5 @@
-from services.algoritmi import a_tahti
+from services.a_star import a_star
+from services.jps import JPS
 
 class Ui:
     """Ohjelman käyttöliittymä. Käyttöliittymä kehittynee kurssin edetessä.
@@ -26,7 +27,7 @@ class Ui:
     def aloita(self):
         """funktio, joka aloittaa käyttöliittymän ja ohjelman toiminnan
         """
-        #self.kuvanpiirtaja.piirra()
+
         teksti = "\nOhjelma tällä hetkellä demonstroi A*-algoritmin toimintaa " \
                  "tulostamalla kaksi eri matriisikarttaa. Kummankin kartan kohdalla " \
                  "ensin tulostetaan " \
