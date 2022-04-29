@@ -1,5 +1,8 @@
-from services.a_star import a_star
+from services.a_star import a_star, reitti
 from services.jps import JPS
+from services.analysoi import Analysoi
+from services.kuva import Kuva
+import time
 
 class Ui:
     """Ohjelman käyttöliittymä. Käyttöliittymä kehittynee kurssin edetessä.
@@ -27,7 +30,7 @@ class Ui:
     def aloita(self):
         """funktio, joka aloittaa käyttöliittymän ja ohjelman toiminnan
         """
-
+        """
         teksti = "\nOhjelma tällä hetkellä demonstroi A*-algoritmin toimintaa " \
                  "tulostamalla kaksi eri matriisikarttaa. Kummankin kartan kohdalla " \
                  "ensin tulostetaan " \
@@ -38,14 +41,36 @@ class Ui:
                  "Algoritmin hakemaa reittiä.\n"
 
         print(teksti, "\nkartta 1:\n")
-        self.tulosta_matriisi(self.m1)
+        #self.tulosta_matriisi(self.m1)
         print("\nreitin kanssa:\n")
-        self.tulosta_matriisi(self.luo_reittimatriisi(self.m1, a_tahti((0,0), (4,3), m=self.m1)))
+        #self.tulosta_matriisi(self.luo_reittimatriisi(self.m1, a_star((0,0), (4,3), m=self.m1)))
         print("\nkartta 2:\n")
-        self.tulosta_matriisi(self.m2)
+        #self.tulosta_matriisi(self.m2)
         print("\nreitin kanss:a\n")
-        self.tulosta_matriisi(self.luo_reittimatriisi(self.m2, a_tahti((0,0), (4,3), m=self.m2)))
+        #self.tulosta_matriisi(self.luo_reittimatriisi(self.m2, a_star((0,0), (4,3), m=self.m2)))
         print("\n")
+
+        """
+
+        kuva = Kuva()
+        m2 = Analysoi(kuva)
+
+
+
+        jps = JPS()
+        t = time.time()
+        solmut, matka = jps.aloita((10,10), (1050,200), m2.anna_matriisi())
+        print("jps aika:", time.time()-t, "matka:", matka)
+
+        kuva.piirra_vareissa(solmut)
+        kuva.nayta_vareissa()
+
+        kuva = Kuva()
+        t = time.time()
+        solmut2, matka2 = a_star((10,10), (1050,200), m2.anna_matriisi())
+        print("a_star, aika:", time.time()-t, "matka:", matka2)
+        kuva.piirra_vareissa(solmut2)
+        kuva.nayta_vareissa()
 
 
     def silmukka(self):

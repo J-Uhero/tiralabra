@@ -89,7 +89,7 @@ def a_star(mista, minne, m, h=h_arvot):
         if nyk[1] == minne:
             # tarkastetaan, onko määränpää-solmu saavutettu, jolloin
             # reitti on löydetty
-            return reitti(edeltajat, minne)
+            return reitti(edeltajat, minne), g[minne]
                 # palautetaan reitti-funktio, joka palauttaa lyhimmän reitin
                 # listana tuplekoordinaatteja
 
