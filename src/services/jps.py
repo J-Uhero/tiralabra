@@ -10,8 +10,6 @@ LOYDETYT = []
 
 class JPS:
     """luokka JPS-algoritmille. Vaatii siistimistä debuggauksen jäljiltä ja hiomista.
-    löytää tällä hetkellä vain jump pointit, muttei palauta käännöskohtia diagonaalihausta
-    vaaka- ja pystyhauksi, mikäli niistä löytyy jump point.
     """
 
     def h_arvot(self, mista, minne):
@@ -19,8 +17,7 @@ class JPS:
     
     def sijainnit(self, leveys, korkeus):
         for i in range(korkeus):
-            SIJAINNIT.append([0]*leveys)
-    
+            SIJAINNIT.append([0]*leveys)  
     
     def tee_oikea_reitti(self, vanhemmat, loppu):
         reitti = [loppu]
@@ -36,11 +33,11 @@ class JPS:
                 seuraaja = vanhempi
             else:
                 if abs(x_e) > abs(y_e):
-                    if y_e < 0:
+                    if x_e > 0:
                         y_e = -1 * y_e
                     kulmasolmu = (vanhempi[0]+y_e, seuraaja[1])
                 else:
-                    if x_e < 0:
+                    if y_e < 0:
                         x_e = -1 * x_e
                     kulmasolmu = (seuraaja[0], vanhempi[1]+x_e)
                 reitti.append(kulmasolmu)
@@ -48,8 +45,6 @@ class JPS:
                 seuraaja = vanhempi
         reitti.reverse()
         return reitti
-
-
 
     def aloita(self, alku, loppu, matriisi):
         t = time.time()
@@ -115,14 +110,12 @@ class JPS:
             if suunta not in suunnat[solmu]:
                 suunnat[solmu].append(suunta)
 
-
     def haku(self, solmu, suunta, matriisi, leveys, korkeus, loppu, suunnat, t, vanhemmat):
         x, y = solmu
         alku = (x, y)
         pisteet = []
 
         while True:
-
             x1, y1 = x + suunta[0], y + suunta[1]
             x2, y2 = x1 + suunta[0], y1 + suunta[1]
             
@@ -158,7 +151,6 @@ class JPS:
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (1, suunta[1]), suunnat)
 
-
             elif suunta[1] == 0:
                 if (0 <= x2 and suunta[0] == -1) or (x2 < leveys and suunta[0] == 1):
                 # tarkastetaan, ettei olla vasemmanpuoleisemmalla riillä, jos suunta on vasen (-1) tai
@@ -173,7 +165,6 @@ class JPS:
                         #alhaalla tilaa ja täyttyykö jp:n ehdot
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (suunta[0], 1), suunnat)
-
 
             else:
                 #diagonaalihaku
@@ -211,10 +202,7 @@ class JPS:
                 # tehdään lisäykset x- ja y-koordinaatteihin, jotta haku etenee
                 # oikeaan suuntaan
 
-
     def pisteiden_etaisyys(self, vanhempi, piste):
-        x_e = abs(vanhempi[0] - piste[0])
-        y_e = abs(vanhempi[1] - piste[1])
+        x_e = abs(vanhempi[0] - piste[0]) # solmujen x-koordinaattien etäisyys
+        y_e = abs(vanhempi[1] - piste[1]) # solmujen y-koordinaattien etäisyys
         return abs(x_e - y_e) + math.sqrt(2) * min(x_e, y_e)
-
-    

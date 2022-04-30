@@ -1,4 +1,4 @@
-from services.a_star import a_star, reitti
+from services.a_star import A_star
 from services.jps import JPS
 from services.analysoi import Analysoi
 from services.kuva import Kuva
@@ -12,7 +12,7 @@ class Ui:
     """
 
     def __init__(self):
-        #self.kuvanpiirtaja = Kuvanpiirtaja()
+
         self.m1 = [
             [0, 1, 0, 0, 0],
             [0, 1, 0, 0, 0],
@@ -54,18 +54,15 @@ class Ui:
 
         kuva = Kuva()
         m2 = Analysoi(kuva)
-
-
-
         jps = JPS()
         t = time.time()
         solmut, matka = jps.aloita((10,10), (1050,200), m2.anna_matriisi())
         print("jps aika:", time.time()-t, "matka:", matka)
-
         kuva.piirra_vareissa(solmut)
         kuva.nayta_vareissa()
 
         kuva = Kuva()
+        a_star = A_star()
         t = time.time()
         solmut2, matka2 = a_star((10,10), (1050,200), m2.anna_matriisi())
         print("a_star, aika:", time.time()-t, "matka:", matka2)
