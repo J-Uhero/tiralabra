@@ -1,5 +1,6 @@
 from heapq import heappop, heappush
 import math
+from services.heuristiikkafunktio import Heuristiikkafunktio as hf
 
 koord_lisaykset_1 = [(0,-1), (0,1), (-1,0), (1,0)]
 koord_lisaykset_sqrt2 = [(-1,-1), (-1,1), (1,-1), (1,1)]
@@ -49,7 +50,7 @@ class A_star:
                     p.append(uusi)
         return p
 
-    def a_star(self, mista, minne, m, h=h_arvot):
+    def aloita(self, mista, minne, m, h=h_arvot):
         """A*-algoritmi. Näyttäisi toimivan nyt oikein.
         Vaatinee vielä optimointia ja toisteisen koodin siismistä.
 
@@ -91,7 +92,7 @@ class A_star:
             if nyk[1] == minne:
                 # tarkastetaan, onko määränpää-solmu saavutettu, jolloin
                 # reitti on löydetty
-                return self.reitti(edeltajat, minne), g[minne]
+                return self.reitti(edeltajat, minne), edeltajat, g[minne]
                     # palautetaan reitti-funktio, joka palauttaa lyhimmän reitin
                     # listana tuplekoordinaatteja
 
@@ -118,8 +119,8 @@ class A_star:
                         # asetetaan solmun f-arvo f-taulukkoon
                     edeltajat[seur_k] = nyk[1]
                         # talletetaan seuraajasolmun edeltäjäsolmun koordinaatit muistiin
-                    if (f_arvo, seur_k) not in keko:
-                        heappush(keko, (f_arvo, seur_k))
+                    #if (f_arvo, seur_k) not in keko:
+                    heappush(keko, (f_arvo, seur_k))
                             # solmu laitetaan kekoon, josta pääsilmukassa otetaan solmuja
                             # pienimmän f-arvon mukaan.
 
@@ -135,7 +136,7 @@ class A_star:
                     f_arvo = mahd_g + h(seur_k, minne)
                     f[seur_k] = f_arvo
                     edeltajat[seur_k] = nyk[1]
-                    if (f_arvo, seur_k) not in keko:
-                        heappush(keko, (f_arvo, seur_k))
+                    #if (f_arvo, seur_k) not in keko:
+                    heappush(keko, (f_arvo, seur_k))
         return None
             # tyhjä palautus, jos reittiä ei löytynyt tarkasteltavien solmujen loppuessa kesken

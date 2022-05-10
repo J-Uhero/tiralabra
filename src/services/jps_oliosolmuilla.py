@@ -2,10 +2,11 @@ from heapq import heappop, heappush
 
 class Solmu:
     
-    def __init__(self, sijainti, suunta=None, vanhempi=None):
+    def __init__(self, sijainti, suunta=None, vanhempi=None, etaisyys=0):
         self._sijainti = sijainti # (x, y)
         self._suunta = suunta # (1/-1, 1/-1)
         self._vanhempi = vanhempi # (x, y)
+
     
     def liiku(self):
         self._sijainti = (self._sijainti[0]+self._suunta[0],
@@ -54,8 +55,19 @@ class Jps:
         self.korkeus = len(m)
         self.jp = []
 
-    def a_star(self):
-        pass
+    def a_star(self, s, e, m):
+        heappush(self.jp, Solmu(self.s))
+
+        while len(self.jp) > 0:
+            solmu = heappop(self.jp)
+            if solmu.sijainti == self.e:
+                return
+            if solmu.suunta is None:
+                for suunta in [(1,-1), (1,1), (-1,1), (1,1)]:
+                    self.diagonaali_haku(solmu.sijainti, suunta)
+            else:
+                self.diagonaali_haku(solmu.sijainti, solmu.suunta)
+
 
     def aloita(self):
         pass
@@ -73,6 +85,7 @@ class Jps:
 
     def diagonaali_tarkistus(self, solmu, suunta, vanhempi):
         # en tiedä tarvitaanko vai riittääkö pysty-/vaakatarkistus
+
         tarkistus1 = (solmu[0], solmu[1] + (-1) * suunta[1])
             # kohta samalla x-akselin kohdalla, josta tarkastetaan estettä
         tarkistus2 = (solmu[0] + (-1) * suunta[0], solmu[1])
@@ -87,7 +100,7 @@ class Jps:
                 heappush(self.jp, Solmu(solmu, suunta, vanhempi))
                     # lisätään solmu jump pointiksi
 
-                    # HUOM! SUUNTA EI OIKEA. PITÄÄ TARKASTAA VIELÄ
+                    # HUOM! SOLMUUN LISÄTTY SUUNTA EI OIKEA. PITÄÄ TARKASTAA VIELÄ
 
 
         if not self.m[tarkistus1[0]][tarkistus1[1]] and self.m[tarkistus2[0]][tarkistus2[1]]:
@@ -129,7 +142,7 @@ class Jps:
             # vaakasuunta 
             if (0 < koord[0] and suunta[0] == -1) or (koord[0] < self.leveys and suunta[0] == 1): 
                 # tarkastetaan, ettei olla vasemmassa laidassa, jos suunta vasemmalle tai
-                # ettei olla oikeassa laidassa, jos suunta oikealle
+                # oikeassa laidassa, jos suunta oikealle
 
                 if koord[1] > 0 and self.m[koord[0]][koord[1]-1]:
                     # tarkastetaan ettei olla yläreunassa ja onko yläpuolella estettä
@@ -142,7 +155,7 @@ class Jps:
                         # lisätään jump point. suunta oikea- tai vasen alaviisto
 
 
-    def diagonaali_haku(self, s, m, suunta, e):
+    def diagonaali_haku(self, s, suunta):
         """Kartta/matriisi tarkastetaan ja etsitään jump pointit eli hyppypisteet/-solmut.
         Etsiminen aloitetaan diagonaalilla haulla, josta käsin tehdään horisontaaliset
         ja vertikaaliset haut. Haku palauttaa löydetyt jump pointit ja maalisolmun, mikäli
@@ -161,31 +174,30 @@ class Jps:
         """
 
         x, y = s
-        jp = []
+        loyto = []
         matka = 0
         while True:
             # diagonaalihaun pääsilmukka
             
             if  x > self.leveys or y > self.korkeus or x < 0 or y < 0:
-                return jp
+                return loyto
                 # haku mennyt yli kartan rajoista, jolloin palautetaan
                 # löydetyt jump pointit
 
-            if x == e[0] and y == e[1]:
-                return jp.append((x,y))
+            if x == self.e[0] and y == self.e[1]:
+                return loyto.append((x,y))
                 # haku löysi maalisolmun, jolloin palautetaan löydetyt jump-pointit
                 # ja maalisolmu§    
             
-            if m[y][x] == 1:
-                return jp
+            if self.m[y][x]:
+                return loyto
                 #haku törmännyt esteeseen, jolloin ei voi edeteä.
             
-            
-            jp += self.pysty_vaaka_haku(s=(x,y), m=m, suunta=(suunta[0],0), e=e)
+            loyto += self.pysty_vaaka_haku(s=(x,y), m=self.m, suunta=(suunta[0],0), e=self.e)
                 # vaakahaku: jos diagonaalisuunta on ylä- tai alaviistoon oikealle,
                 # vaakahaku etenee myös oikealle ja päinvastoin
 
-            jp += self.pysty_vaaka_haku(s=(x,y), m=m, suunta=(0,suunta[1]), e=e)
+            loyto += self.pysty_vaaka_haku(s=(x,y), m=self.m, suunta=(0,suunta[1]), e=self.e)
                 # pystyhaku: jos diagonaalihaku etenee yläviistoon oikealle tai vasemmalle,
                 # pystyhaku etenee ylös ja päinvastoin
 
@@ -265,8 +277,4 @@ class Jps:
                         # silloin lisätään sijainti jump pointiksi jp-listaan
 
 if __name__ == "__main__":
-    solmu = Solmu((0,0), (1,0), "jee")
-    solmu.sijainti = (1,1)
-    print(solmu.sijainti)
-    solmu.liiku()
-    print(solmu.sijainti)
+    pass

@@ -1,8 +1,25 @@
 from services.a_star import A_star
+#from services.a_star_v2 import A_star_v2
+from services.algortimi import Algoritmi
+from services.heuristiikka import Heuristiikka
+from services.heuristiikkafunktio import Heuristiikkafunktio as hf
 from services.jps import JPS
 from services.analysoi import Analysoi
 from services.kuva import Kuva
 import time
+
+OTSIKKO = "\nA*- ja JPS-algoritmien vertailu ja visualisointi"
+PAAVALIKKO_VALINNAT = ["Aja algoritmi: 1",
+            "Vertaa algoritmeja: 2",
+            "Vertaa heuristiikkaa: 3",
+            "Asetukset: 4",
+            "Lopeta: 0"]
+ASETUKSET_VALINNAT = ["Aseta algoritmi: 1",
+            "Aseta heuristiikka: 2",
+            "Aseta kuvatiedosto: 3",
+            "Aseta lähtö- ja päätepiste: 4",
+            "Palaa: 0"]
+VIRHE = "Virheellinen syöte"
 
 class Ui:
     """Ohjelman käyttöliittymä. Käyttöliittymä kehittynee kurssin edetessä.
@@ -12,79 +29,191 @@ class Ui:
     """
 
     def __init__(self):
-
-        self.m1 = [
-            [0, 1, 0, 0, 0],
-            [0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 0]
-            ]
-
-        self.m2 = [
-            [0, 1, 0, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 1, 1, 0, 0],
-            [0, 0, 0, 1, 0]
-            ]
+        self.kuva = Kuva()
+        self.matriisi = Analysoi(self.kuva)
+        self.algoritmi = Algoritmi.A_STAR
+        self.heuristiikka = Heuristiikka.PYTHAGORAS
+        self.lahtopiste = (10,10)
+        self.paatospiste = (1050,200)
 
     def aloita(self):
-        """funktio, joka aloittaa käyttöliittymän ja ohjelman toiminnan
-        """
-        """
-        teksti = "\nOhjelma tällä hetkellä demonstroi A*-algoritmin toimintaa " \
-                 "tulostamalla kaksi eri matriisikarttaa. Kummankin kartan kohdalla " \
-                 "ensin tulostetaan " \
-                 "kartta ilman reittiä ja sen jälkeen algoritmin etsimä lyhin " \
-                 "pisteiden (0,0) ja (4,3) välillä etsitty reitti samassa kartassa. " \
-                 "Kyseiset pisteet ovat karttojen vasen yläkulma ja oikea alakulma. " \
-                 "Kartassa 0 kuvaa pistettä, jossa voi liikkua, 1 kuvaa estettä ja 2 " \
-                 "Algoritmin hakemaa reittiä.\n"
+        print(OTSIKKO)
+        self.tulosta_asetukset()
+        self.paavalikko()
 
-        print(teksti, "\nkartta 1:\n")
-        #self.tulosta_matriisi(self.m1)
-        print("\nreitin kanssa:\n")
-        #self.tulosta_matriisi(self.luo_reittimatriisi(self.m1, a_star((0,0), (4,3), m=self.m1)))
-        print("\nkartta 2:\n")
-        #self.tulosta_matriisi(self.m2)
-        print("\nreitin kanss:a\n")
-        #self.tulosta_matriisi(self.luo_reittimatriisi(self.m2, a_star((0,0), (4,3), m=self.m2)))
-        print("\n")
+    def tulosta_asetukset(self):
+        asetukset = f"\nAlgoritmi: {self.algoritmi.value}, Heuristiikka: {self.heuristiikka.value}\n"\
+                    f"Lähtö: {self.lahtopiste}, Päätös: {self.paatospiste}, "\
+                    f"Karttakuva: {self.kuva.anna_tiedostonimi()}\n"
+        print(asetukset)
 
-        """
+    def paavalikko(self):
+        while True:
+            for valinta in PAAVALIKKO_VALINNAT:
+                print(valinta)
 
-        kuva = Kuva()
-        m2 = Analysoi(kuva)
-        jps = JPS()
-        t = time.time()
-        solmut, matka = jps.aloita((10,10), (1050,200), m2.anna_matriisi())
-        print("jps aika:", time.time()-t, "matka:", matka)
-        kuva.piirra_vareissa(solmut)
-        kuva.nayta_vareissa()
+            syote = input("> ")
+            if syote == "0":
+                break
+            elif syote == "1":
+                self.aja_algoritmi(self.algoritmi, self.heuristiikka)
+            elif syote == "2":
+                self.vertaa_algoritmeja()
+            elif syote == "3":
+                self.vertaa_heuristiikkaa()
+            elif syote == "4":
+                self.asetukset()
+            else:
+                print(VIRHE)
+            print("\n")
 
-        kuva = Kuva()
-        a_star = A_star()
-        t = time.time()
-        solmut2, matka2 = a_star((10,10), (1050,200), m2.anna_matriisi())
-        print("a_star, aika:", time.time()-t, "matka:", matka2)
-        kuva.piirra_vareissa(solmut2)
-        kuva.nayta_vareissa()
+    def aja_algoritmi(self, algoritmi, heuristiikka):
+        aloitus = lopetus = reitti = edeltajat = pituus = None
+        if algoritmi == Algoritmi.A_STAR:
+            a_star = A_star()
+            aloitus = time.time()
+            reitti, edeltajat, pituus = a_star.aloita(self.lahtopiste,
+                                                      self.paatospiste,
+                                                      self.matriisi.anna_matriisi(),
+                                                      h=self.palauta_heuristiikkafunktio(heuristiikka))
+            lopetus = time.time()
 
+        if algoritmi == Algoritmi.JPS:
+            jps = JPS()
+            aloitus = time.time()
+            reitti, edeltajat, pituus = jps.aloita(self.lahtopiste,
+                                                   self.paatospiste,
+                                                   self.matriisi.anna_matriisi(),
+                                                   h=self.palauta_heuristiikkafunktio(heuristiikka))
+            lopetus = time.time()
 
-    def silmukka(self):
-        pass
+        self.tulosta_algoritmin_tiedot(algoritmi, heuristiikka, pituus, lopetus-aloitus, len(edeltajat))
 
-    def luo_reittimatriisi(self, m, reitti):
-        """funktio uuden matriisin, jossa reitti näkyy, luomista varten
-        """
-        uusi_m = list(m)
-        for k in reitti:
-            uusi_m[k[1]][k[0]] = 2
-        return uusi_m
+        if algoritmi == Algoritmi.A_STAR:
+            self.kuva.tulosta_a_star(reitti, edeltajat)
+        if algoritmi == Algoritmi.JPS:
+            self.kuva.tulosta_jps(reitti, edeltajat)
 
-    def tulosta_matriisi(self, m):
-        """funktio matriisin tulostamiseen
-        """
-        for i in range(len(m)):
-            print(m[i])
+    def tulosta_algoritmin_tiedot(self, algoritmi, heuristiikka, pituus, aika, edeltajia):
+        tulostus = f"\nAlgoritmi: {algoritmi.value}\nHeuristiikka: {heuristiikka.value}\n"\
+                   f"Reitin pituus: {pituus}\nAika: {aika}\n"\
+                   f"tutkittuja solmuja: {edeltajia}"
+        print(tulostus)
+
+    def palauta_heuristiikkafunktio(self, heuristiikka):
+        if heuristiikka == Heuristiikka.PYTHAGORAS:
+            return hf.pythagoras
+        if heuristiikka == Heuristiikka.MANHATTAN:
+            return hf.manhattan
+        if heuristiikka == Heuristiikka.ESTEETON:
+            return hf.esteeton
+
+    def vertaa_algoritmeja(self):
+        self.aja_algoritmi(Algoritmi.A_STAR, self.heuristiikka)
+        self.aja_algoritmi(Algoritmi.JPS, self.heuristiikka)
+
+    def vertaa_heuristiikkaa(self):
+        self.aja_algoritmi(self.algoritmi, Heuristiikka.PYTHAGORAS)
+        self.aja_algoritmi(self.algoritmi, Heuristiikka.ESTEETON)
+        self.aja_algoritmi(self.algoritmi, Heuristiikka.MANHATTAN)
+
+    def asetukset(self):
+        while True:
+            self.tulosta_asetukset()
+            for valinta in ASETUKSET_VALINNAT:
+                print(valinta)
+            syote = input("> ")
+            if syote == "0":
+                break
+            elif syote == "1":
+                self.aseta_algoritmi()
+            elif syote == "2":
+                self.aseta_heuristiikka()
+            elif syote == "3":
+                self.aseta_kuva()
+            elif syote == "4":
+                self.aseta_hakukoordinaatit()
+            else:
+                print(VIRHE)
+
+    def aseta_algoritmi(self):
+        print("\nA*: 1\nJPS: 2\nPalaa: 0")
+        syote = input("> ")
+        if syote == "0":
+            return
+        elif syote == "1":
+            self.algoritmi = Algoritmi.A_STAR
+        elif syote == "2":
+            self.algoritmi = Algoritmi.JPS
+        else:
+            print(VIRHE)
+
+    def aseta_heuristiikka(self):
+        while True:
+            print("\nPythagoras: 1\nEsteetön etäisyys: 2\nManhattan: 3\nPalaa: 0")
+            syote = input("> ")
+            if syote == "0":
+                break
+            elif syote == "1":
+                self.heuristiikka = Heuristiikka.PYTHAGORAS
+            elif syote == "2":
+                self.heuristiikka = Heuristiikka.ESTEETON
+            elif syote == "3":
+                self.heuristiikka = Heuristiikka.MANHATTAN 
+            else:
+                print(VIRHE)
+
+    def aseta_kuva(self):
+        print("Anna kansiossa /src/data olevan kuvatiedoston nimi:")
+        syote = input("> ")
+        if self.kuva.lataa_kuva(syote):
+            self.matriisi = Analysoi(self.kuva)
+            print("\nKuvan lisäys onnistui!")
+        else:
+            print(f"\n Kuvatiedoston {syote} lisäys epäonnistui")
+
+    def aseta_hakukoordinaatit(self):
+        print("\nAlkupiste: 1\nPäätepiste: 2\nPalaa: 0")
+        syote = input("> ")
+        while True:
+            if syote == "0":
+                break
+            elif syote == "1":
+                self.aseta_lahtopiste()
+            elif syote == "2":
+                self.aseta_paatepiste()
+            else:
+                print(VIRHE)
+
+    def aseta_lahtopiste(self):
+        print("\nAnna lähtöpisteen koordinaatit")
+        esteeton, koord = self.kysy_koordinaatit()
+        if esteeton is None:
+            return
+        elif esteeton:
+            self.lahtopiste = koord
+            print("Lähtöpisteen lisäys onnistui!")
+        else:
+            print("Epäkelpo koordinaatti")
+
+    def aseta_paatepiste(self):
+        print("\nAnna päätepisteen koordinaatit")
+        esteeton, koord = self.kysy_koordinaatit()
+        if esteeton is None:
+            return
+        elif esteeton:
+            self.paatospiste = koord
+            print("Päätepisteen lisäys onnistui!")
+        else:
+            print("Epäkelpo koordinaatti")
+
+    def kysy_koordinaatit(self):
+        try:
+            x = int(input("x: "))
+            y = int(input("y: "))
+            return self.matriisi.arvo((x,y)), (x, y)
+        except ValueError:
+            print(VIRHE)
+            return None, None
 
 vakio_ui = Ui()

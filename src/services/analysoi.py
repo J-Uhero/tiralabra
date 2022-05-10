@@ -1,5 +1,6 @@
 from services.kuva import Kuva
 import numpy as np
+import time
 
 class Analysoi:
     """Luokka kuvan analysointia varten ja muuttamista matriisiksi,
@@ -41,7 +42,13 @@ class Analysoi:
         return self.matriisi
     
     def arvo(self, koord):
-        return self.matriisi[koord[0]][koord[1]]
+        if self.koordinaatti_matriisissa(koord):
+            return self.matriisi[koord[0]][koord[1]]
+        return False
+    
+    def koordinaatti_matriisissa(self, koord):
+        return 0 <= koord[0] and koord[0] < self.leveys and \
+               0 <= koord[1] and koord[1] < self.korkeus
     
     def np_arvo(self, koord):
         return self.np_matriisi[koord[0]][koord[1]]
@@ -49,4 +56,4 @@ class Analysoi:
     def tulosta_matriisi(self):
         print(self.matriisi)
 
-vakio_analysoi = Analysoi(Kuva())
+#vakio_analysoi = Analysoi(Kuva())

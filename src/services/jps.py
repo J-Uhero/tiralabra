@@ -1,4 +1,3 @@
-from audioop import reverse
 from heapq import heappop,heappush
 import math
 import time
@@ -11,6 +10,9 @@ LOYDETYT = []
 class JPS:
     """luokka JPS-algoritmille. Vaatii siistimistä debuggauksen jäljiltä ja hiomista.
     """
+
+    def __init__(self):
+        pass
 
     def h_arvot(self, mista, minne):
         return math.sqrt((mista[0]-minne[0])**2 + (mista[1]-minne[1])**2)
@@ -33,7 +35,7 @@ class JPS:
                 seuraaja = vanhempi
             else:
                 if abs(x_e) > abs(y_e):
-                    if x_e > 0:
+                    if x_e < 0:
                         y_e = -1 * y_e
                     kulmasolmu = (vanhempi[0]+y_e, seuraaja[1])
                 else:
@@ -46,7 +48,7 @@ class JPS:
         reitti.reverse()
         return reitti
 
-    def aloita(self, alku, loppu, matriisi):
+    def aloita(self, alku, loppu, matriisi, h=h_arvot):
         t = time.time()
         if matriisi[alku[1]][alku[0]] or matriisi[loppu[1]][loppu[0]]:
             return -1, -1
@@ -56,14 +58,14 @@ class JPS:
         korkeus = len(matriisi)
         edeltajat = {}
         vanhemmat = {}
-        loydetyt = {}
+        #loydetyt = {}
         suunnat = {}
         suunnat[alku] = [(1,-1), (1,0), (1,1), (0,1),
                          (-1,1), (-1,0), (-1,-1), (0,-1)]
         g = {}
         self.sijainnit(leveys, korkeus)
 
-        heappush(keko, (self.h_arvot(alku,loppu), alku))
+        heappush(keko, (h(alku,loppu), alku))
         g[alku] = 0
 
         while len(keko) > 0:
@@ -71,31 +73,30 @@ class JPS:
             nykyinen = heappop(keko)
 
             if nykyinen[1] == loppu:
-                return self.tee_oikea_reitti(vanhemmat, loppu), g[loppu]
+                return self.tee_oikea_reitti(vanhemmat, loppu), vanhemmat, g[loppu]
 
             solmut = []
             for suunta in suunnat[nykyinen[1]]:
                 solmut += self.haku(nykyinen[1],
-                                        suunta,
-                                        matriisi,
-                                        leveys,
-                                        korkeus,
-                                        loppu,
-                                        suunnat,
-                                        t,
-                                        edeltajat)
+                                    suunta,
+                                    matriisi,
+                                    leveys,
+                                    korkeus,
+                                    loppu,
+                                    suunnat,
+                                    t,
+                                    edeltajat)
 
             for solmu in solmut:
                 mahd_g = g[nykyinen[1]] + self.pisteiden_etaisyys(nykyinen[1], solmu)
 
-                if solmu not in loydetyt.keys():
+                if solmu not in g.keys():
                     g[solmu] = math.inf
-                    loydetyt[solmu] = True
 
                 if mahd_g < g[solmu]:
                     g[solmu] = mahd_g
 
-                    f_arvo = mahd_g + self.h_arvot(solmu, loppu)
+                    f_arvo = mahd_g + h(solmu, loppu)
                     heappush(keko, (f_arvo, solmu))
                     vanhemmat[solmu] = nykyinen[1]
     
