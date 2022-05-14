@@ -1,5 +1,4 @@
 from services.a_star import A_star
-#from services.a_star_v2 import A_star_v2
 from services.algortimi import Algoritmi
 from services.heuristiikka import Heuristiikka
 from services.heuristiikkafunktio import Heuristiikkafunktio as hf
@@ -9,7 +8,6 @@ from services.kuva import Kuva
 from services.suorituskykytestaus import Suorituskykytestaus
 from services.kuvaaja import Kuvaaja
 import time
-from random import randint
 
 OTSIKKO = "\nA*- ja JPS-algoritmien vertailu ja visualisointi"
 PAAVALIKKO_VALINNAT = ["1: Aja algoritmi",
@@ -41,26 +39,10 @@ class Ui:
         self.paatospiste = (1050,200)
 
     def aloita(self):
-        #self.kokeile_a_star_v2()
         print(OTSIKKO)
         self.tulosta_asetukset()
         self.paavalikko()
-    """
-    def kokeile_a_star_v2(self):
 
-        a_s2 = A_star_v2()
-        aloitus = lopetus = reitti = edeltajat = pituus = None
-
-        aloitus = time.time()
-        reitti, edeltajat, pituus = a_s2.aloita(self.lahtopiste,
-                                                      self.paatospiste,
-                                                      self.matriisi.anna_matriisi(),
-                                                      h=self.palauta_heuristiikkafunktio(Heuristiikka.ESTEETON))
-        lopetus = time.time()
-        print("A star v2, esteetön:")
-        self.tulosta_algoritmin_tiedot(Algoritmi.A_STAR, Heuristiikka.ESTEETON, pituus, lopetus-aloitus, len(edeltajat))
-        self.kuva.tulosta_a_star(reitti, edeltajat)
-    """
     def tulosta_asetukset(self):
         asetukset = f"\nAlgoritmi: {self.algoritmi.value}, Heuristiikka: {self.heuristiikka.value}\n"\
                     f"Lähtö: {self.lahtopiste}, Päätös: {self.paatospiste}, "\
@@ -108,16 +90,15 @@ class Ui:
                                                    self.matriisi.anna_matriisi(),
                                                    h=self.palauta_heuristiikkafunktio(heuristiikka))
             lopetus = time.time()
-        
+
         if edeltajat != None:
             self.tulosta_algoritmin_tiedot(algoritmi, heuristiikka, pituus, lopetus-aloitus, len(edeltajat))
-
             if algoritmi == Algoritmi.A_STAR:
                 self.kuva.tulosta_a_star(reitti, edeltajat)
             if algoritmi == Algoritmi.JPS:
                 self.kuva.tulosta_jps(reitti, edeltajat)
         else:
-            print("\nEi hakutulosta")
+            print("\nEi reittiä löydettävissä")
 
     def tulosta_algoritmin_tiedot(self, algoritmi, heuristiikka, pituus, aika, edeltajia):
         tulostus = f"\nAlgoritmi: {algoritmi.value}\nHeuristiikka: {heuristiikka.value}\n"\
@@ -232,28 +213,9 @@ class Ui:
         else:
             self.paatospiste = koord
             print("Päätepisteen lisäys onnistui!")
-    
+
     def aseta_satunnaiset_pisteet(self):
-        leveys, korkeus = self.kuva.kuvan_koko()
-        leveys -= 1
-        korkeus -= 1
-        x1 = x2 = y1 = y2 = 0
-        while True:
-            x1 = randint(1, leveys)
-            y1 = randint(1, korkeus)
-            if not self.matriisi.anna_matriisi()[y1][x1]:
-                break
-        while True:
-            x2 = randint(1, leveys)
-            y2 = randint(1, korkeus)
-            if self.matriisi.anna_matriisi()[y2][x2]:
-                continue
-            elif (x1 == x2 and y1 == y2):
-                continue
-            else:
-                break 
-        self.lahtopiste = (x1,y1)
-        self.paatospiste = (x2,y2)
+        self.lahtopiste, self.paatospiste = self.matriisi.anna_satunnaiset_pisteet()
         print(f"Asetettu lähtö: {self.lahtopiste}, päätös: {self.paatospiste}")
 
     def kysy_koordinaatit(self):

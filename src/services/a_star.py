@@ -1,6 +1,5 @@
 from heapq import heappop, heappush
 import math
-from services.heuristiikkafunktio import Heuristiikkafunktio as hf
 
 koord_lisaykset_1 = [(0,-1), (0,1), (-1,0), (1,0)]
 koord_lisaykset_sqrt2 = [(-1,-1), (-1,1), (1,-1), (1,1)]
@@ -16,15 +15,6 @@ class A_star:
             solmu = edeltajat[solmu]
             reitti = [solmu] + reitti
         return reitti
-
-    def h_arvot(mista, minne):
-        """h-arvo lasketaan suorana etäisyytenä päätepisteeseen pythagoran
-        lauseen avulla. H-arvo kertoo arvion, mikä voisi olla jäljellä olevan
-        reitin pituus nykyisestä solmusta käsin ja on tässä tapauksessa
-        täysin suora reitti.
-        """
-
-        return math.sqrt((mista[0]-minne[0])**2 + (mista[1]-minne[1])**2)
 
     def tarkista_koordinaatit(self, solmu, m, koord_lisaykset):
         """A*-algoritmin hyödyntämä funktio tarkistamaan,
@@ -50,7 +40,7 @@ class A_star:
                     p.append(uusi)
         return p
 
-    def aloita(self, mista, minne, m, h=h_arvot):
+    def aloita(self, mista, minne, m, h):
         """A*-algoritmi. Näyttäisi toimivan nyt oikein.
         Vaatinee vielä optimointia ja toisteisen koodin siismistä.
 

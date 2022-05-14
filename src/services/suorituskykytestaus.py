@@ -11,7 +11,7 @@ import time
 from services.kuvaaja import Kuvaaja
 
 class Suorituskykytestaus:
-    def __init__(self, kuva, matriisi):
+    def __init__(self, kuva: Kuva, matriisi):
         self.kuva = kuva
         self.matriisi = matriisi
         self.jps = JPS()
@@ -40,11 +40,10 @@ class Suorituskykytestaus:
         rivit = []
         t = time.time()
         for i in range(1,kierroksia+1):
-        #    if i % 10 == 0:
     
             mista, minne = self.hae_alku_ja_loppu(self.leveys-1, self.korkeus-1)
-            print("kierros:", i, "aika", time.time()-t, "pisteet:", mista,\
-                  self.matriisi[mista[1]][mista[0]], minne, self.matriisi[minne[1]][minne[0]]) 
+            print("kierros:", i, "aika:", time.time()-t, "pisteet/este:", mista,"/"\
+                  self.matriisi[mista[1]][mista[0]],",", minne,"/" self.matriisi[minne[1]][minne[0]]) 
             aloitus = time.time()
             _, edeltajat, pituus = self.a_star.aloita(mista, minne,
                                                       self.matriisi,
@@ -92,7 +91,6 @@ def suorituskykytestaus_main():
     ku.luo_heuristiikan_aikavertailu(k.anna_tiedostonimi(), Algoritmi.JPS)
     ku.luo_heuristiikkojen_solmuvertailu(k.anna_tiedostonimi(), Algoritmi.A_STAR)
     ku.luo_heuristiikkojen_solmuvertailu(k.anna_tiedostonimi(), Algoritmi.JPS)
-
 
     """
     ongelmia näiden kanssa (muttei liene enää):

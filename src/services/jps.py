@@ -1,9 +1,7 @@
 from heapq import heappop,heappush
 import math
-import time
 
 
-SIJAINNIT = []
 ESTEET = []
 LOYDETYT = []
 
@@ -11,16 +9,6 @@ class JPS:
     """luokka JPS-algoritmille. Vaatii siistimistä debuggauksen jäljiltä ja hiomista.
     """
 
-    def __init__(self):
-        pass
-
-    def h_arvot(self, mista, minne):
-        return math.sqrt((mista[0]-minne[0])**2 + (mista[1]-minne[1])**2)
-    
-    def sijainnit(self, leveys, korkeus):
-        for i in range(korkeus):
-            SIJAINNIT.append([0]*leveys)  
-    
     def hae_kulmasolmu(self, vanhempi, seuraaja):
         x_e = seuraaja[0]-vanhempi[0]
         y_e = seuraaja[1]-vanhempi[1]
@@ -35,6 +23,7 @@ class JPS:
                 kulma = (seuraaja[0], vanhempi[1]+abs(x_e))
             else:
                 kulma = (seuraaja[0], vanhempi[1]-abs(x_e))
+        print("kulma",kulma)
         return kulma
     
     def tee_oikea_reitti(self, vanhemmat, loppu):
@@ -42,17 +31,20 @@ class JPS:
         seuraaja = loppu
         while seuraaja in vanhemmat.keys():
             vanhempi = vanhemmat[seuraaja]
+            print("vanh", vanhempi, "seur", seuraaja)
             x_e = seuraaja[0]-vanhempi[0]
             y_e = seuraaja[1]-vanhempi[1]
-            if abs(x_e) != abs(y_e) or \
-                seuraaja[0] != vanhempi[0] or seuraaja[1] != vanhempi[1]:
+            print("erot", x_e, y_e)
+            if abs(x_e) != abs(y_e) and \
+                (seuraaja[0] != vanhempi[0] or seuraaja[1] != vanhempi[1]):
                 reitti.append(self.hae_kulmasolmu(vanhempi, seuraaja))
             reitti.append(vanhempi)
             seuraaja = vanhempi
+            print(reitti)
         reitti.reverse()
         return reitti
 
-    def aloita(self, alku, loppu, matriisi, h=h_arvot):
+    def aloita(self, alku, loppu, matriisi, h):
 
         if matriisi[alku[1]][alku[0]] or matriisi[loppu[1]][loppu[0]]:
             return [], None, -1
@@ -62,12 +54,10 @@ class JPS:
         korkeus = len(matriisi)
         edeltajat = {}
         vanhemmat = {}
-        #loydetyt = {}
         suunnat = {}
         suunnat[alku] = [(1,-1), (1,0), (1,1), (0,1),
                          (-1,1), (-1,0), (-1,-1), (0,-1)]
         g = {}
-        self.sijainnit(leveys, korkeus)
 
         heappush(keko, (h(alku,loppu), alku))
         g[alku] = 0
@@ -77,7 +67,9 @@ class JPS:
             nykyinen = heappop(keko)
 
             if nykyinen[1] == loppu:
-                return self.tee_oikea_reitti(vanhemmat, loppu), vanhemmat, g[loppu]
+                reitti = self.tee_oikea_reitti(vanhemmat, loppu)
+                print(reitti)
+                return reitti, vanhemmat, g[loppu]
 
             solmut = []
             for suunta in suunnat[nykyinen[1]]:
@@ -153,7 +145,7 @@ class JPS:
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (-1, suunta[1]), suunnat)
 
-                    if x1 <= leveys and matriisi[y1][x1+1] and not matriisi[y2][x1+1]:
+                    if x1 < leveys-1 and matriisi[y1][x1+1] and not matriisi[y2][x1+1]:
                         pisteet.append((x1,y1))
                         self.suunnan_sijoitus((x1,y1), (1, suunta[1]), suunnat)
 
