@@ -66,9 +66,38 @@ class Kuva:
     def tulosta_jps(self, reitti, edeltajat):
         kuva = self.alk_kuva.copy()
         for seuraaja, edeltaja in edeltajat.items():
-            self.piirra_vareissa(kuva, [seuraaja, edeltaja], vari=(250,200,200))
+            if self.ei_kulmasolmua(seuraaja, edeltaja):
+                self.piirra_vareissa(kuva, [seuraaja, edeltaja], vari=(250,200,200))
+            else:
+                kulma = self.hae_kulmasolmu(edeltaja, seuraaja)
+                self.piirra_vareissa(kuva, [seuraaja, kulma], vari=(250,200,200))
+                self.piirra_vareissa(kuva, [kulma, edeltaja], vari=(250,200,200))
         self.piirra_vareissa(kuva, reitti)
         self.nayta_vareissa(kuva)
+    
+    def ei_kulmasolmua(self, seuraaja, vanhempi):
+        x_e = seuraaja[0]-vanhempi[0]
+        y_e = seuraaja[1]-vanhempi[1]
+        if abs(x_e) == abs(y_e) or \
+                seuraaja[0] == vanhempi[0] or seuraaja[1] == vanhempi[1]:
+            return True
+        return False
+
+    def hae_kulmasolmu(self, vanhempi, seuraaja):
+        x_e = seuraaja[0]-vanhempi[0]
+        y_e = seuraaja[1]-vanhempi[1]
+        kulma = None
+        if abs(x_e) > abs(y_e):
+            if x_e > 0:
+                kulma = (vanhempi[0]+abs(y_e), seuraaja[1])
+            else:
+                kulma = (vanhempi[0]-abs(y_e), seuraaja[1])
+        else:
+            if y_e > 0:
+                kulma = (seuraaja[0], vanhempi[1]+abs(x_e))
+            else:
+                kulma = (seuraaja[0], vanhempi[1]-abs(x_e))
+        return kulma
 
     def kuvan_koko(self):
         """Palautetaan kuvan koko muodossa (x,y)
@@ -94,3 +123,6 @@ class Kuva:
     def piirra_vareissa(self, kuva, pisteet, vari="red"):
         piirra = ImageDraw.Draw(kuva)
         piirra.line(pisteet, width=1, fill=vari)
+    
+    def anna_kuva(self):
+        return self.alk_kuva.copy()

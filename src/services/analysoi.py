@@ -1,6 +1,5 @@
 from services.kuva import Kuva
-import numpy as np
-import time
+from random import randint
 
 class Analysoi:
     """Luokka kuvan analysointia varten ja muuttamista matriisiksi,
@@ -49,6 +48,23 @@ class Analysoi:
     def koordinaatti_matriisissa(self, koord):
         return 0 <= koord[0] and koord[0] < self.leveys and \
                0 <= koord[1] and koord[1] < self.korkeus
+    
+    def anna_satunnaiset_pisteet(self):
+        x1 = x2 = y1 = y2 = 0
+        while True:
+            x1 = randint(0, self.leveys-1)
+            y1 = randint(0, self.korkeus-1)
+            if not self.matriisi[y1][x1]:
+                break
+        while True:
+            x2 = randint(0, self.leveys-1)
+            y2 = randint(0, self.korkeus-1)
+            if self.matriisi[y2][x2]:
+                continue
+            elif (x1 == x2 and y1 == y2):
+                continue
+            else:
+                return (x1, y1), (x2, y2)
     
     def np_arvo(self, koord):
         return self.np_matriisi[koord[0]][koord[1]]

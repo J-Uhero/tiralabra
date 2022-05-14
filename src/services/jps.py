@@ -21,37 +21,41 @@ class JPS:
         for i in range(korkeus):
             SIJAINNIT.append([0]*leveys)  
     
+    def hae_kulmasolmu(self, vanhempi, seuraaja):
+        x_e = seuraaja[0]-vanhempi[0]
+        y_e = seuraaja[1]-vanhempi[1]
+        kulma = None
+        if abs(x_e) > abs(y_e):
+            if x_e > 0:
+                kulma = (vanhempi[0]+abs(y_e), seuraaja[1])
+            else:
+                kulma = (vanhempi[0]-abs(y_e), seuraaja[1])
+        else:
+            if y_e > 0:
+                kulma = (seuraaja[0], vanhempi[1]+abs(x_e))
+            else:
+                kulma = (seuraaja[0], vanhempi[1]-abs(x_e))
+        return kulma
+    
     def tee_oikea_reitti(self, vanhemmat, loppu):
         reitti = [loppu]
         seuraaja = loppu
-        kulmasolmu = None
         while seuraaja in vanhemmat.keys():
             vanhempi = vanhemmat[seuraaja]
             x_e = seuraaja[0]-vanhempi[0]
             y_e = seuraaja[1]-vanhempi[1]
-            if abs(x_e) == abs(y_e) or \
-                seuraaja[0] == vanhempi[0] or seuraaja[1] == vanhempi[1]:
-                reitti.append(vanhempi)
-                seuraaja = vanhempi
-            else:
-                if abs(x_e) > abs(y_e):
-                    if x_e < 0:
-                        y_e = -1 * y_e
-                    kulmasolmu = (vanhempi[0]+y_e, seuraaja[1])
-                else:
-                    if y_e < 0:
-                        x_e = -1 * x_e
-                    kulmasolmu = (seuraaja[0], vanhempi[1]+x_e)
-                reitti.append(kulmasolmu)
-                reitti.append(vanhempi)
-                seuraaja = vanhempi
+            if abs(x_e) != abs(y_e) or \
+                seuraaja[0] != vanhempi[0] or seuraaja[1] != vanhempi[1]:
+                reitti.append(self.hae_kulmasolmu(vanhempi, seuraaja))
+            reitti.append(vanhempi)
+            seuraaja = vanhempi
         reitti.reverse()
         return reitti
 
     def aloita(self, alku, loppu, matriisi, h=h_arvot):
-        t = time.time()
+
         if matriisi[alku[1]][alku[0]] or matriisi[loppu[1]][loppu[0]]:
-            return -1, -1
+            return [], None, -1
 
         keko = [] # h_arvo, sijainti
         leveys = len(matriisi[0])
@@ -84,7 +88,6 @@ class JPS:
                                     korkeus,
                                     loppu,
                                     suunnat,
-                                    t,
                                     edeltajat)
 
             for solmu in solmut:
@@ -99,7 +102,9 @@ class JPS:
                     f_arvo = mahd_g + h(solmu, loppu)
                     heappush(keko, (f_arvo, solmu))
                     vanhemmat[solmu] = nykyinen[1]
-    
+
+        return [], None, -1
+
     def matriisilla(self, x, y, matriisi):
         if x > len(matriisi[0]) or y > len(matriisi) or x < 0 or y < 0:
             return True
@@ -111,7 +116,7 @@ class JPS:
             if suunta not in suunnat[solmu]:
                 suunnat[solmu].append(suunta)
 
-    def haku(self, solmu, suunta, matriisi, leveys, korkeus, loppu, suunnat, t, vanhemmat):
+    def haku(self, solmu, suunta, matriisi, leveys, korkeus, loppu, suunnat, vanhemmat):
         x, y = solmu
         alku = (x, y)
         pisteet = []
@@ -133,7 +138,7 @@ class JPS:
                 # ja maalisolmu§    
             
             if matriisi[y1][x1]:
-                ESTEET.append((x1,y1))
+                #ESTEET.append((x1,y1))
                 return pisteet
                 #haku törmännyt esteeseen, jolloin ei voi edeteä.
 
@@ -183,11 +188,11 @@ class JPS:
             
             if suunta[0] != 0 and suunta[1] != 0:
                 loydetyt = []
-                loydetyt += self.haku((x1,y1), (suunta[0],0), matriisi, leveys, korkeus, loppu, suunnat,t,vanhemmat)
+                loydetyt += self.haku((x1,y1), (suunta[0],0), matriisi, leveys, korkeus, loppu, suunnat,vanhemmat)
                     # vaakahaku: jos diagonaalisuunta on ylä- tai alaviistoon oikealle,
                     # vaakahaku etenee myös oikealle ja päinvastoin
 
-                loydetyt += self.haku((x1,y1), (0,suunta[1]), matriisi, leveys, korkeus, loppu, suunnat,t,vanhemmat)
+                loydetyt += self.haku((x1,y1), (0,suunta[1]), matriisi, leveys, korkeus, loppu, suunnat, vanhemmat)
                     # pystyhaku: jos diagonaalihaku etenee yläviistoon oikealle tai vasemmalle,
                     # pystyhaku etenee ylös ja päinvastoin
 
