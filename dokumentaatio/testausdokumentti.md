@@ -1,6 +1,6 @@
 # Testausdokumentti
 
-Ohjelman testauksen jakaisin kolmeen eri kohtaan: yksikkötestaukseen, suorituskykytestaukseen ja testaukseen kokeilemalla ohjelman toimintaa käytännössä.
+Ohjelman testauksen jakaisin neljään eri kohtaan: yksikkötestaukseen pytest-kirjaston avulla, suorituskykytestaukseen, testaukseen kokeilemalla ohjelman toimintaa käytännössä ja koodin staattiseen analyysiin pylint-kirjaston avulla.
 
 Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien toiminnan oikeellisuutta. Yksikkötestien testikattavuus näyttää tältä:
 
@@ -26,3 +26,5 @@ Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
 ![suorituskykytestaus6](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus6.png)
 ![suorituskykytestaus7](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus7.png)
 ![suorituskykytestaus8](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus8.png)
+
+Pylintin arvosana koodin siisteydestä ja asianmukaisuudesta on nyt 8,32. Jotkin asiat, jotka eivät ole menneet pylint-sääntöjen mukaan, ovat mielestäni perusteltuja algoritmien toiminnassa, kuten lyhyet muuttujien nimet ja hieman toisteinen koodi, koska algoritmin tehokas toiminta on pääasia.
