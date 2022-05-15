@@ -16,5 +16,11 @@ Päivä | Aika (h) | Mitä tein
 21.04 | 3 | JPS:n muovaamista hyödyntäen oliosolmuja
 22.04 | 8 | JPS:n uudelleen aloitus
 22.04 | 8 | JPS jokseenkin toimintakuntoiseksi vaikkakin viimeistelemättömäksi, viikkoraportit ja vertaisarvioinnit
+25.04 | 3 | Kuvan analysointi ja matriisiksi muuttaminen
+26.04 | 8 | Testailua, reitin piirtämistä, JPS:n debuggausta
+28.04 | 2 | JPS:n korjailua
+29.04 | 2 | JPS:n taitepisteiden talletus/laskeminen, vertaisarviointi
+30.04 | 2,5 | Vertaisarviointi, A*:n testien päivitys, viikkoraportti
 
-Yht. 54,5 h
+
+Yht. 67,5 h
