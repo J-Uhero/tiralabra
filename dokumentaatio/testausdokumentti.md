@@ -3,6 +3,7 @@
 Ohjelman testauksen jakaisin kolmeen eri kohtaan: yksikkötestaukseen, suorituskykytestaukseen ja testaukseen kokeilemalla ohjelman toimintaa käytännössä.
 
 Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien toiminnan oikeellisuutta. Yksikkötestien testikattavuus näyttää tältä:
+
 ![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus1.png)
 
 Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää reitit ja käydyt solmut.
