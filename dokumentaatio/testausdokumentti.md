@@ -13,10 +13,14 @@ Suorituskykytestauksessa olen ajanut A*:n ja JPS:n sekä pythagoran että esteet
 Kaappaukset suorituskykytestauksesta:
 
 ![suorituskykytestaus1](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus1.png)
+
 Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
+
 ![suorituskykytestaus2](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus2.png)
 ![suorituskykytestaus3](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus3.png)
+
 Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
+
 ![suorituskykytestaus4](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus4.png)
 ![suorituskykytestaus5](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus5.png)
 ![suorituskykytestaus6](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus6.png)
