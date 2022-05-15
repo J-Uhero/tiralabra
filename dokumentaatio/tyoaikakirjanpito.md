@@ -23,4 +23,4 @@ Päivä | Aika (h) | Mitä tein
 30.04 | 2,5 | Vertaisarviointi, A*:n testien päivitys, viikkoraportti
 
 
-Yht. 67,5 h
+Yht. 72 h
