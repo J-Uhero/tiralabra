@@ -1,13 +1,13 @@
+import time
 from services.a_star import A_star
 from services.algortimi import Algoritmi
 from services.heuristiikka import Heuristiikka
 from services.heuristiikkafunktio import Heuristiikkafunktio as hf
 from services.jps import JPS
-from services.analysoi import Analysoi
+from services.matriisi import Matriisi
 from services.kuva import Kuva
 from services.suorituskykytestaus import Suorituskykytestaus
 from services.kuvaaja import Kuvaaja
-import time
 
 OTSIKKO = "\nA*- ja JPS-algoritmien vertailu ja visualisointi"
 PAAVALIKKO_VALINNAT = ["1: Aja algoritmi",
@@ -32,7 +32,7 @@ class Ui:
 
     def __init__(self):
         self.kuva = Kuva()
-        self.matriisi = Analysoi(self.kuva)
+        self.matriisi = Matriisi(self.kuva)
         self.algoritmi = Algoritmi.A_STAR
         self.heuristiikka = Heuristiikka.PYTHAGORAS
         self.lahtopiste = (10,10)
@@ -44,9 +44,10 @@ class Ui:
         self.paavalikko()
 
     def tulosta_asetukset(self):
-        asetukset = f"\nAlgoritmi: {self.algoritmi.value}, Heuristiikka: {self.heuristiikka.value}\n"\
+        asetukset = f"\nAlgoritmi: {self.algoritmi.value}, Heuristiikka: "\
+                    f"{self.heuristiikka.value}\n"\
                     f"Lähtö: {self.lahtopiste}, Päätös: {self.paatospiste}, "\
-                    f"Karttakuva: {self.kuva.anna_tiedostonimi()}\n"
+                    f"Karttakuva: {self.kuva.anna_tiedostonimi()}"
         print(asetukset)
 
     def paavalikko(self):
@@ -77,22 +78,23 @@ class Ui:
             a_star = A_star()
             aloitus = time.time()
             reitti, edeltajat, pituus = a_star.aloita(self.lahtopiste,
-                                                      self.paatospiste,
-                                                      self.matriisi.anna_matriisi(),
-                                                      h=self.palauta_heuristiikkafunktio(heuristiikka))
+                                            self.paatospiste,
+                                            self.matriisi.anna_matriisi(),
+                                            h=hf.palauta_heuristiikkafunktio(heuristiikka))
             lopetus = time.time()
 
         if algoritmi == Algoritmi.JPS:
             jps = JPS()
             aloitus = time.time()
             reitti, edeltajat, pituus = jps.aloita(self.lahtopiste,
-                                                   self.paatospiste,
-                                                   self.matriisi.anna_matriisi(),
-                                                   h=self.palauta_heuristiikkafunktio(heuristiikka))
+                                            self.paatospiste,
+                                            self.matriisi.anna_matriisi(),
+                                            h=hf.palauta_heuristiikkafunktio(heuristiikka))
             lopetus = time.time()
 
-        if edeltajat != None:
-            self.tulosta_algoritmin_tiedot(algoritmi, heuristiikka, pituus, lopetus-aloitus, len(edeltajat))
+        if edeltajat is not None:
+            self.tulosta_algoritmin_tiedot(algoritmi, heuristiikka, pituus,
+                                            lopetus-aloitus, len(edeltajat))
             if algoritmi == Algoritmi.A_STAR:
                 self.kuva.tulosta_a_star(reitti, edeltajat)
             if algoritmi == Algoritmi.JPS:
@@ -102,17 +104,9 @@ class Ui:
 
     def tulosta_algoritmin_tiedot(self, algoritmi, heuristiikka, pituus, aika, edeltajia):
         tulostus = f"\nAlgoritmi: {algoritmi.value}\nHeuristiikka: {heuristiikka.value}\n"\
-                   f"Reitin pituus: {pituus}\nAika: {aika}\n"\
+                   f"Reitin pituus: {pituus:.2f}\nAika: {aika:.2f}\n"\
                    f"tutkittuja solmuja: {edeltajia}"
         print(tulostus)
-
-    def palauta_heuristiikkafunktio(self, heuristiikka):
-        if heuristiikka == Heuristiikka.PYTHAGORAS:
-            return hf.pythagoras
-        if heuristiikka == Heuristiikka.MANHATTAN:
-            return hf.manhattan
-        if heuristiikka == Heuristiikka.ESTEETON:
-            return hf.esteeton
 
     def vertaa_algoritmeja(self):
         self.aja_algoritmi(Algoritmi.A_STAR, self.heuristiikka)
@@ -121,7 +115,6 @@ class Ui:
     def vertaa_heuristiikkaa(self):
         self.aja_algoritmi(self.algoritmi, Heuristiikka.PYTHAGORAS)
         self.aja_algoritmi(self.algoritmi, Heuristiikka.ESTEETON)
-        self.aja_algoritmi(self.algoritmi, Heuristiikka.MANHATTAN)
 
     def asetukset(self):
         while True:
@@ -164,7 +157,7 @@ class Ui:
         elif syote == "2":
             self.heuristiikka = Heuristiikka.ESTEETON
         elif syote == "3":
-            self.heuristiikka = Heuristiikka.MANHATTAN 
+            self.heuristiikka = Heuristiikka.MANHATTAN
         else:
             print(VIRHE)
 
@@ -172,7 +165,7 @@ class Ui:
         print("Anna kansiossa /src/data olevan kuvatiedoston nimi:")
         syote = input("> ")
         if self.kuva.lataa_kuva(syote):
-            self.matriisi = Analysoi(self.kuva)
+            self.matriisi = Matriisi(self.kuva)
             print("\nKuvan lisäys onnistui!")
         else:
             print(f"\n Kuvatiedoston {syote} lisäys epäonnistui")
@@ -228,12 +221,37 @@ class Ui:
             return None, None
 
     def suorituskyky(self):
-        ku = Kuvaaja()
-        ku.luo_algoritmien_aikavertailu(self.kuva.anna_tiedostonimi(), Heuristiikka.ESTEETON)
-        ku.luo_algoritmien_aikavertailu(self.kuva.anna_tiedostonimi(), Heuristiikka.PYTHAGORAS)
-        ku.luo_heuristiikan_aikavertailu(self.kuva.anna_tiedostonimi(), Algoritmi.A_STAR)
-        ku.luo_heuristiikan_aikavertailu(self.kuva.anna_tiedostonimi(), Algoritmi.JPS)
-        ku.luo_heuristiikkojen_solmuvertailu(self.kuva.anna_tiedostonimi(), Algoritmi.A_STAR)
-        ku.luo_heuristiikkojen_solmuvertailu(self.kuva.anna_tiedostonimi(), Algoritmi.JPS)
+        while True:
+            print("\n1: Tulosta kuvaajat\n2: Testaa\n0: Palaa")
+            syote = input("> ")
+            if syote == "0":
+                break
+            elif syote == "1":
+                self.nayta_kuvaajat()
+            elif syote == "2":
+                self.testaa_suorituskykya()
+            else:
+                print(VIRHE)
+
+    def nayta_kuvaajat(self):
+        kuvaaja = Kuvaaja()
+        kuvaaja.luo_algoritmien_aikavertailu(self.kuva.anna_tiedostonimi(), Heuristiikka.ESTEETON)
+        kuvaaja.luo_algoritmien_aikavertailu(self.kuva.anna_tiedostonimi(), Heuristiikka.PYTHAGORAS)
+        kuvaaja.luo_heuristiikan_aikavertailu(self.kuva.anna_tiedostonimi(), Algoritmi.A_STAR)
+        kuvaaja.luo_heuristiikan_aikavertailu(self.kuva.anna_tiedostonimi(), Algoritmi.JPS)
+        kuvaaja.luo_heuristiikkojen_solmuvertailu(self.kuva.anna_tiedostonimi(), Algoritmi.A_STAR)
+        kuvaaja.luo_heuristiikkojen_solmuvertailu(self.kuva.anna_tiedostonimi(), Algoritmi.JPS)
+
+    def testaa_suorituskykya(self):
+        suorituskykytestaus = Suorituskykytestaus(self.kuva, self.matriisi)
+        try:
+            print("Monta kertaa algoritmit/heuristiikka ajetaan? (max. 1000)")
+            syote = int(input("> "))
+            if 0 < syote <= 1000:
+                suorituskykytestaus.testaa_algoritmeja(syote)
+            else:
+                print("Epäkelpo luku")
+        except ValueError:
+            print(VIRHE)
 
 vakio_ui = Ui()

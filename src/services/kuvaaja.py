@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from random import randint
 from services.algortimi import Algoritmi
 from services.heuristiikka import Heuristiikka
 from services.talletus import vakio_talletus as talletus
@@ -21,7 +20,7 @@ class Kuvaaja:
                     x2.append(float(rivi[4]))
                     y2.append(float(rivi[5]))
         otsikko = f"A* ja JPS aikavertailu, heuristiikka: {heuristiikka.value}"
-        self.luo_scatter("matka", "aika (s)", "A*", "JPS", otsikko, nimi, x1, y1, x2, y2)
+        self.luo_scatter("matka", "aika (s)", "A*", "JPS", otsikko, x1, y1, x2, y2)
 
     def luo_heuristiikan_aikavertailu(self, nimi, algoritmi):
         a = str(algoritmi)
@@ -38,7 +37,7 @@ class Kuvaaja:
                     x2.append(float(rivi[4]))
                     y2.append(float(rivi[5]))
         otsikko = f"Heuristiikan aikavertailu, algoritmi: {algoritmi.value}"
-        self.luo_scatter("matka", "aika (s)", "pythagoras", "esteetön", otsikko, nimi, x1, y1, x2, y2)
+        self.luo_scatter("matka", "aika (s)", "pythagoras", "esteetön", otsikko, x1, y1, x2, y2)
 
     def luo_heuristiikkojen_solmuvertailu(self, nimi, algoritmi):
         a = str(algoritmi)
@@ -55,9 +54,9 @@ class Kuvaaja:
                     x2.append(float(rivi[6]))
                     y2.append(float(rivi[4]))
         otsikko = f"Heuristiikan solmumäärävertailu, algoritmi: {algoritmi.value}"
-        self.luo_scatter("solmuja", "matka", "pythagoras", "esteetön", otsikko, nimi, x1, y1, x2, y2)
+        self.luo_scatter("solmuja", "matka", "pythagoras", "esteetön", otsikko, x1, y1, x2, y2)
 
-    def luo_scatter(self, x_akseli, y_akseli, a, b, otsikko, nimi, x1, y1, x2, y2):
+    def luo_scatter(self, x_akseli, y_akseli, a, b, otsikko, x1, y1, x2, y2):
         plt.scatter(x1, y1, label=a, color="blue", marker="o", s=1.5)
         plt.scatter(x2, y2, label=b, color="red", marker="o", s=1.5)
         plt.xlabel(x_akseli)

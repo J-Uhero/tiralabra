@@ -1,12 +1,8 @@
 from heapq import heappop,heappush
 import math
 
-
-ESTEET = []
-LOYDETYT = []
-
 class JPS:
-    """luokka JPS-algoritmille. Vaatii siistimistä debuggauksen jäljiltä ja hiomista.
+    """luokka JPS-algoritmille.
     """
 
     def hae_kulmasolmu(self, vanhempi, seuraaja):
@@ -23,24 +19,20 @@ class JPS:
                 kulma = (seuraaja[0], vanhempi[1]+abs(x_e))
             else:
                 kulma = (seuraaja[0], vanhempi[1]-abs(x_e))
-        print("kulma",kulma)
         return kulma
-    
+
     def tee_oikea_reitti(self, vanhemmat, loppu):
         reitti = [loppu]
         seuraaja = loppu
-        while seuraaja in vanhemmat.keys():
+        while seuraaja in vanhemmat:
             vanhempi = vanhemmat[seuraaja]
-            print("vanh", vanhempi, "seur", seuraaja)
             x_e = seuraaja[0]-vanhempi[0]
             y_e = seuraaja[1]-vanhempi[1]
-            print("erot", x_e, y_e)
             if abs(x_e) != abs(y_e) and \
                 (seuraaja[0] != vanhempi[0] or seuraaja[1] != vanhempi[1]):
                 reitti.append(self.hae_kulmasolmu(vanhempi, seuraaja))
             reitti.append(vanhempi)
             seuraaja = vanhempi
-            print(reitti)
         reitti.reverse()
         return reitti
 
@@ -68,7 +60,6 @@ class JPS:
 
             if nykyinen[1] == loppu:
                 reitti = self.tee_oikea_reitti(vanhemmat, loppu)
-                print(reitti)
                 return reitti, vanhemmat, g[loppu]
 
             solmut = []
@@ -79,13 +70,12 @@ class JPS:
                                     leveys,
                                     korkeus,
                                     loppu,
-                                    suunnat,
-                                    edeltajat)
+                                    suunnat)
 
             for solmu in solmut:
                 mahd_g = g[nykyinen[1]] + self.pisteiden_etaisyys(nykyinen[1], solmu)
 
-                if solmu not in g.keys():
+                if solmu not in g:
                     g[solmu] = math.inf
 
                 if mahd_g < g[solmu]:
@@ -97,26 +87,26 @@ class JPS:
 
         return [], None, -1
 
-    def matriisilla(self, x, y, matriisi):
-        if x > len(matriisi[0]) or y > len(matriisi) or x < 0 or y < 0:
-            return True
-    
+    #def matriisilla(self, x, y, matriisi):
+    #    if x > len(matriisi[0]) or y > len(matriisi) or x < 0 or y < 0:
+    #        return True
+
     def suunnan_sijoitus(self, solmu, suunta, suunnat):
-        if solmu not in suunnat.keys():
+        if solmu not in suunnat:
             suunnat[solmu] = [suunta]
         else:
             if suunta not in suunnat[solmu]:
                 suunnat[solmu].append(suunta)
 
-    def haku(self, solmu, suunta, matriisi, leveys, korkeus, loppu, suunnat, vanhemmat):
+    def haku(self, solmu, suunta, matriisi, leveys, korkeus, loppu, suunnat):
         x, y = solmu
-        alku = (x, y)
+        #alku = (x, y)
         pisteet = []
 
         while True:
             x1, y1 = x + suunta[0], y + suunta[1]
             x2, y2 = x1 + suunta[0], y1 + suunta[1]
-            
+
             if x1 >= leveys or y1 >= korkeus or x1 < 0 or y1 < 0:
                 return pisteet
                 # haku mennyt yli kartan rajoista, jolloin palautetaan
@@ -126,11 +116,10 @@ class JPS:
                 pisteet.append((x1,y1))
                 self.suunnan_sijoitus((x1,y1), (0,0), suunnat)
                 return pisteet
-                # haku löysi maalisolmun, jolloin palautetaan löydetyt jump-pointit
-                # ja maalisolmu§    
-            
+                # haku löysi maalisolmun, jolloin palautetaan löydetyt jump pointit
+                # ja maalisolmu
+
             if matriisi[y1][x1]:
-                #ESTEET.append((x1,y1))
                 return pisteet
                 #haku törmännyt esteeseen, jolloin ei voi edeteä.
 
@@ -169,22 +158,22 @@ class JPS:
                 if matriisi[y1][x] and not matriisi[y][x1] and 0 <= y2 and y2 < korkeus:
                     if not matriisi[y2][x]:
                         pisteet.append((x1,y1))
-                        vanhemmat[(alku)] = (x1,y2)
+                        #vanhemmat[(alku)] = (x1,y2)
                         self.suunnan_sijoitus((x1,y1), (suunta[0]*(-1), suunta[1]), suunnat)
-                
+
                 if matriisi[y][x1] and not matriisi[y1][x] and 0 <= x2 and x2 < leveys:
                     if not matriisi[y][x2]:
                         pisteet.append((x1,y1))
-                        vanhemmat[(alku)] = (x1,y2)
+                        #vanhemmat[(alku)] = (x1,y2)
                         self.suunnan_sijoitus((x1,y1), (suunta[0], suunta[1]*(-1)), suunnat)
-            
+
             if suunta[0] != 0 and suunta[1] != 0:
                 loydetyt = []
-                loydetyt += self.haku((x1,y1), (suunta[0],0), matriisi, leveys, korkeus, loppu, suunnat,vanhemmat)
+                loydetyt += self.haku((x1,y1), (suunta[0],0), matriisi, leveys, korkeus, loppu, suunnat)
                     # vaakahaku: jos diagonaalisuunta on ylä- tai alaviistoon oikealle,
                     # vaakahaku etenee myös oikealle ja päinvastoin
 
-                loydetyt += self.haku((x1,y1), (0,suunta[1]), matriisi, leveys, korkeus, loppu, suunnat, vanhemmat)
+                loydetyt += self.haku((x1,y1), (0,suunta[1]), matriisi, leveys, korkeus, loppu, suunnat)
                     # pystyhaku: jos diagonaalihaku etenee yläviistoon oikealle tai vasemmalle,
                     # pystyhaku etenee ylös ja päinvastoin
 
@@ -192,9 +181,9 @@ class JPS:
                 if len(loydetyt) > 0:
                     for p in loydetyt:
                         pisteet.append(p)
-                        vanhemmat[(x1,y1)] = p
-                        vanhemmat[(alku)] = (x1,y2)
-            
+                        #vanhemmat[(x1,y1)] = p
+                        #vanhemmat[(alku)] = (x1,y2)
+
             x += suunta[0]
             y += suunta[1]
                 # tehdään lisäykset x- ja y-koordinaatteihin, jotta haku etenee

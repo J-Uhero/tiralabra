@@ -3,7 +3,10 @@ import os
 
 POLKU = os.path.dirname(__file__)
 
-class CSV_lukija:
+class CSVLukija:
+    """Luokka, jonka avulla talletetaan ja luetaan tietoa algoritmien
+    ajosta CSV-tiedostoon suorituskykytestausta varten
+    """
 
     def tiedostonimi(self, nimi):
         return os.path.join(POLKU, "..", "data", nimi + ".csv")
@@ -30,4 +33,4 @@ class CSV_lukija:
             print("CSV-tiedostoon talletus ei onnistunut")
             return False
 
-vakio_csv_lukia = CSV_lukija()
+vakio_csv_lukija = CSVLukija()

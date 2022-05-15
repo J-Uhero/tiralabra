@@ -3,7 +3,11 @@ from services.heuristiikka import Heuristiikka
 
 SQRT2 = sqrt(2)
 
+# pylint: disable=unsubscriptable-object
 class Heuristiikkafunktio():
+    """Luokka vastaa funktioista, joilla algoritmit laskevat eri heuristiikoilla
+    h-arvon eli hypoteettisen etäisyyden tarkasteltavasta solmusta maalisolmuun.
+    """
     def pythagoras(mista, minne):
         return sqrt((mista[0]-minne[0])**2 + (mista[1]-minne[1])**2)
     
@@ -15,7 +19,7 @@ class Heuristiikkafunktio():
         y_e = abs(mista[1] - minne[1]) # solmujen y-koordinaattien etäisyys
         return abs(x_e - y_e) + SQRT2 * min(x_e, y_e)
 
-    def palauta_heuristiikkafunktio(self, heuristiikka):
+    def palauta_heuristiikkafunktio(heuristiikka):
         if heuristiikka == Heuristiikka.PYTHAGORAS:
             return Heuristiikkafunktio.pythagoras
         if heuristiikka == Heuristiikka.MANHATTAN:
