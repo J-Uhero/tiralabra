@@ -4,7 +4,7 @@ Ohjelman testauksen jakaisin neljään eri kohtaan: yksikkötestaukseen pytest-k
 
 Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien toiminnan oikeellisuutta erilaisissa tapauksissa, myös kun algoritmi saa virheellisiä syötteitä. Yksikkötestit pystyy ajamaan komentoriviltä käsin "poetry run invoke tests" -komennolla. Yksikkötestien testikattavuus näyttää tältä:
 
-![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus2.png)
+![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus3.png)
 
 Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää karttakuvissa reitit ja käydyt solmut/jump pointit. Reitin visuaalisesta esitystavasta oli muutenkin hyötyä ohjelman testaamisessa, kun näki suoraan kartalta, millainen piirtynyt reitti on ja miten haku on edennyt.
 
