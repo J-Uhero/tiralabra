@@ -9,14 +9,14 @@ class Heuristiikkafunktio():
     h-arvon eli hypoteettisen etäisyyden tarkasteltavasta solmusta maalisolmuun.
     """
     def pythagoras(mista, minne):
-        """Laskee pisteiden välissen heuristisen etäisyyden pythagoran lauseella
+        """Laskee pisteiden välissen euklidisen etäisyyden pythagoran lauseella
 
         Args:
             mista (tuple): (x,y)
             minne (tuple): (x,y)
 
         Returns:
-            float: heuristinen etäisyys
+            float: euklidinen etäisyys
         """
         return sqrt((mista[0]-minne[0])**2 + (mista[1]-minne[1])**2)
 

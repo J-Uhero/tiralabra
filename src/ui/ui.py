@@ -4,6 +4,7 @@ from entities.kuvaaja import Kuvaaja
 from entities.matriisi import Matriisi
 from enums.algortimi import Algoritmi
 from enums.heuristiikka import Heuristiikka
+from repository.talletus import vakio_talletus as talletus
 from services.a_star import A_star
 from services.heuristiikkafunktio import Heuristiikkafunktio as hf
 from services.jps import JPS
@@ -95,14 +96,18 @@ class Ui:
                                             lopetus-aloitus, len(edeltajat))
             if algoritmi == Algoritmi.A_STAR:
                 self.kuva.tulosta_a_star(reitti, edeltajat)
+
             if algoritmi == Algoritmi.JPS:
                 self.kuva.tulosta_jps(reitti, edeltajat)
+
+            talletus.talleta_rivi(self.kuva.anna_tiedostonimi(), algoritmi, heuristiikka,\
+                self.lahtopiste, self.paatospiste, pituus, lopetus-aloitus, len(edeltajat))
         else:
             print("\nEi reittiä löydettävissä")
 
     def tulosta_algoritmin_tiedot(self, algoritmi, heuristiikka, pituus, aika, edeltajia):
         tulostus = f"\nAlgoritmi: {algoritmi.value}\nHeuristiikka: {heuristiikka.value}\n"\
-                   f"Reitin pituus: {pituus:.2f}\nAika: {aika:.2f}\n"\
+                   f"Reitin pituus: {pituus:.2f}\nAika: {aika:.2f} s\n"\
                    f"tutkittuja solmuja: {edeltajia}"
         print(tulostus)
 

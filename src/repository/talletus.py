@@ -13,7 +13,7 @@ class Talletus:
 
     def talleta_rivi(self, nimi, algoritmi, heuristiikka, mista, minne, matka, aika, solmuja):
         rivi = [algoritmi, heuristiikka, mista, minne, matka, aika, solmuja]
-        return lukija.talleta_tiedostoon(nimi, rivi)
+        return lukija.talleta_tiedostoon(nimi, [rivi])
 
     def palauta_lista(self, nimi):
         return lukija.lue_tiedosto(nimi)

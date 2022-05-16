@@ -40,26 +40,26 @@ class Suorituskykytestaus:
             pituus1 = "{:.2f}".format(pituus)
 
             aloitus = time.time()
-            _, edeltajat, pituus2 = self.jps.aloita(mista, minne, self.m, hf.pythagoras)
+            _, edeltajat, pituus = self.jps.aloita(mista, minne, self.m, hf.pythagoras)
             lopetus = time.time()
             if edeltajat is not None:
                 rivit.append(talletus.palauta_rivi(Algoritmi.JPS, Heuristiikka.PYTHAGORAS,
-                                mista, minne, pituus2, lopetus-aloitus, len(edeltajat)))
+                                mista, minne, pituus, lopetus-aloitus, len(edeltajat)))
             pituus2 = "{:.2f}".format(pituus)
 
-            _, edeltajat, pituus3 = self.a_star.aloita(mista, minne, self.m, hf.esteeton)
+            _, edeltajat, pituus = self.a_star.aloita(mista, minne, self.m, hf.esteeton)
             lopetus = time.time()
             if edeltajat is not None:
                 rivit.append(talletus.palauta_rivi(Algoritmi.A_STAR, Heuristiikka.ESTEETON,
-                                mista, minne, pituus3, lopetus-aloitus, len(edeltajat)))
+                                mista, minne, pituus, lopetus-aloitus, len(edeltajat)))
             pituus3 = "{:.2f}".format(pituus)
 
             aloitus = time.time()
-            _, edeltajat, pituus4 = self.jps.aloita(mista, minne, self.m, hf.esteeton)
+            _, edeltajat, pituus = self.jps.aloita(mista, minne, self.m, hf.esteeton)
             lopetus = time.time()
             if edeltajat is not None:
                 rivit.append(talletus.palauta_rivi(Algoritmi.JPS, Heuristiikka.ESTEETON,
-                                mista, minne, pituus4, lopetus-aloitus, len(edeltajat)))
+                                mista, minne, pituus, lopetus-aloitus, len(edeltajat)))
             pituus4 = "{:.2f}".format(pituus)
             
             print(f"kierros: {i}, aika: {time.time()-t:.2f}, pisteet/este: {mista}/"+\
