@@ -6,13 +6,13 @@ Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien t
 
 ![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus1.png)
 
-Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää reitit ja käydyt solmut.
+Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää karttakuvissa reitit ja käydyt solmut/jump pointit.
 
-Suorituskykytestauksessa olen ajanut A*:n ja JPS:n sekä pythagoran että esteettömän etäisyyden heuristiikoilla yhteensä yli tuhat kertaa kutakin algoritmia ja heuristiikkaa kohden satunnaisilla alku- ja päätepisteillä. Samalla olen tulostanut tietoja testin etenemisestä, käytetyistä alku- ja päätepisteistä ja siitä, että ne ovat varmasti esteettömissä kohdissa. Tämän avulla olen saanut sekä tietoa suorituskyvystä, että testattua algoritmin oikeaa toimintaa ja korjattua satunnaisten pisteiden ajossa ilmenneitä bugeja.
+Suorituskykytestauksessa olen ajanut A*:n ja JPS:n sekä pythagoran että esteettömän etäisyyden heuristiikoilla yhteensä yli tuhat kertaa kutakin algoritmia ja heuristiikkaa kohden satunnaisilla alku- ja päätepisteillä. Samalla olen tulostanut tietoja testin etenemisestä, käytetyistä alku- ja päätepisteistä ja ovatko ne ovat varmasti esteettömissä kohdissa sekä varmistanut, että A* ja JPS:n löytämä lyhin reitti on sama. Tämän avulla olen saanut sekä tietoa suorituskyvystä, että testattua algoritmin oikeaa toimintaa.
 
 Kaappaukset suorituskykytestauksesta:
 
-![suorituskykytestaus1](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus1.png)
+![suorituskykytestaus1](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus2.png)
 
 Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
 
@@ -27,4 +27,4 @@ Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
 ![suorituskykytestaus7](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus7.png)
 ![suorituskykytestaus8](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus8.png)
 
-Pylintin arvosana koodin siisteydestä ja asianmukaisuudesta on nyt 8,32. Jotkin asiat, jotka eivät ole menneet pylint-sääntöjen mukaan, ovat mielestäni perusteltuja algoritmien toiminnassa, kuten lyhyet muuttujien nimet ja hieman toisteinen koodi, koska algoritmin tehokas toiminta on pääasia.
+Pylintin arvosana koodin siisteydestä ja asianmukaisuudesta on nyt 9,35. Jotkin asiat, jotka eivät ole menneet pylint-sääntöjen mukaan, ovat mielestäni perusteltuja algoritmien toiminnassa, kuten lyhyet muuttujien nimet ja hieman toisteinen koodi, koska algoritmin tehokas toiminta on pääasia.
