@@ -33,6 +33,13 @@ class TestAlgoritmi(unittest.TestCase):
                           [0,0,1,0,0,0],
                           [0,0,0,0,0,0]]
 
+        self.matriisi5 = [[0,0,0,0,0,0],
+                          [1,1,1,0,1,1],
+                          [0,0,0,0,0,0],
+                          [0,0,1,1,1,0],
+                          [0,0,0,0,0,0],
+                          [0,0,0,0,0,0]]
+
     def test_jps_paasee_paamaaraan_eika_palauta_nonea(self):
         palautus = self.jps.aloita((5,0), (0,5), self.matriisi2, h=hf.pythagoras)[1]
         self.assertIsNotNone(palautus)
@@ -81,3 +88,9 @@ class TestAlgoritmi(unittest.TestCase):
     def test_jps_lahtopiste_yli_rajojen(self):
         palautus = self.jps.aloita((0,6), (0,0), self.matriisi2, h=hf.pythagoras)
         self.assertEqual(palautus, ([], None, -1))
+
+    def test_haku_kiertää_esteen(self):
+        palautus1 = self.jps.aloita((5,5), (0,0), self.matriisi5, h=hf.pythagoras)
+        palautus2 = self.jps.aloita((3,5), (5,0), self.matriisi5, h=hf.pythagoras)
+        self.assertEqual(palautus1[0][-1], (0,0))
+        self.assertEqual(palautus2[0][-1], (5,0))
