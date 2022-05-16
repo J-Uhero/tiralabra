@@ -1,11 +1,22 @@
 from heapq import heappop,heappush
 import math
+# pylint: disable=invalid-name
 
 class JPS:
     """luokka JPS-algoritmille.
     """
 
     def hae_kulmasolmu(self, vanhempi, seuraaja):
+        """Etsii kahden jump pointin välillä olevan kulmasolmun
+        oikeaa reittiä varten.
+
+        Args:
+            vanhempi (tuple): (x,y)
+            seuraaja (tuple): (x,y)
+
+        Returns:
+            tuple: kulmasolmu (x,y)
+        """
         x_e = seuraaja[0]-vanhempi[0]
         y_e = seuraaja[1]-vanhempi[1]
         kulma = None
@@ -22,6 +33,15 @@ class JPS:
         return kulma
 
     def tee_oikea_reitti(self, vanhemmat, loppu):
+        """Luo lyhimmän reitin solmujen välisten yhteyksien avulla
+
+        Args:
+            vanhemmat (dict): sanakirja solmujen välisistä yhteyksistä
+            loppu (tuple): päätössolmu (x,y)
+
+        Returns:
+            list: reitti listana
+        """
         reitti = [loppu]
         seuraaja = loppu
         while seuraaja in vanhemmat:
@@ -37,14 +57,25 @@ class JPS:
         return reitti
 
     def aloita(self, alku, loppu, matriisi, h):
+        """Funktio käynnistää algoritmin toiminnan ja sisältää
+        jump pointeja tarkastelevan A*-algoritmin
 
-        if matriisi[alku[1]][alku[0]] or matriisi[loppu[1]][loppu[0]]:
+        Args:
+            alku (tuple): (x,y)
+            loppu (tuple): (x,y)
+            matriisi (list): kaksiulotteinen lista
+            h (method): funktio, joka laskee heuristiikan
+
+        Returns:
+            tuple: reitti listana, sanakirja edeltäjäsolmuista, reitin pituus
+        """
+
+        if not self.hyvaksytyt_koordinaatit(alku, loppu, matriisi):
             return [], None, -1
 
-        keko = [] # h_arvo, sijainti
+        keko = []
         leveys = len(matriisi[0])
         korkeus = len(matriisi)
-        edeltajat = {}
         vanhemmat = {}
         suunnat = {}
         suunnat[alku] = [(1,-1), (1,0), (1,1), (0,1),
@@ -87,11 +118,14 @@ class JPS:
 
         return [], None, -1
 
-    #def matriisilla(self, x, y, matriisi):
-    #    if x > len(matriisi[0]) or y > len(matriisi) or x < 0 or y < 0:
-    #        return True
-
     def suunnan_sijoitus(self, solmu, suunta, suunnat):
+        """Sijoittaa löydetyn suunnan suunnat-sanakirjaan
+
+        Args:
+            solmu (tuple): tarkasteltava solmu (x,y)
+            suunta (tuple): solmulle lisättävä suunta (x,y)
+            suunnat (dict): sanakirja suunnista
+        """
         if solmu not in suunnat:
             suunnat[solmu] = [suunta]
         else:
@@ -99,8 +133,21 @@ class JPS:
                 suunnat[solmu].append(suunta)
 
     def haku(self, solmu, suunta, matriisi, leveys, korkeus, loppu, suunnat):
+        """Etsii jump pointeja matriisista diagonaali-, pysty- ja vaakahaulla
+
+        Args:
+            solmu (tuple): lähtösolmu (x,y)
+            suunta (tuple): suunta, jonne haku kohdistuu
+            matriisi (list): matriisia kuvaava lista
+            leveys (int): matriisin leveys
+            korkeus (int): matriisin korkeus
+            loppu (tuple): määränpääsolmu (x,y)
+            suunnat (dict): sanakirja eri jump pointien hakusuunnista
+
+        Returns:
+            list: lista löydetyistä jump pointeista
+        """
         x, y = solmu
-        #alku = (x, y)
         pisteet = []
 
         while True:
@@ -124,9 +171,7 @@ class JPS:
                 #haku törmännyt esteeseen, jolloin ei voi edeteä.
 
             if suunta[0] == 0:
-                #print("suunta x=0", x1, y1)
                 if (0 <= y2 and suunta[1] == -1) or (y2 < korkeus and suunta[1] == 1):
-                    #print("suunta x=0 ehto", x1, y1, suunta)
                 # tarkastetaan, ettei olla ylimmällä riillä, jos suunta on ylös (-1) tai
                 # alimmalla rivillä, jos suunta alas (1)
 
@@ -140,8 +185,8 @@ class JPS:
 
             elif suunta[1] == 0:
                 if (0 <= x2 and suunta[0] == -1) or (x2 < leveys and suunta[0] == 1):
-                # tarkastetaan, ettei olla vasemmanpuoleisemmalla riillä, jos suunta on vasen (-1) tai
-                # oikeampuoleisimmalla rivillä, jos suunta oikea (1)
+                # tarkastetaan, ettei olla vasemmanpuoleisemmalla riillä, jos suunta on
+                # vasen (-1) tai oikeampuoleisimmalla rivillä, jos suunta oikea (1)
 
                     if y1 > 0 and matriisi[y1-1][x1] and not matriisi[y1-1][x2]:
                         #ylhäällä tilaa ja täyttyykö jp:n ehdot
@@ -155,25 +200,25 @@ class JPS:
 
             else:
                 #diagonaalihaku
-                if matriisi[y1][x] and not matriisi[y][x1] and 0 <= y2 and y2 < korkeus:
-                    if not matriisi[y2][x]:
-                        pisteet.append((x1,y1))
-                        #vanhemmat[(alku)] = (x1,y2)
-                        self.suunnan_sijoitus((x1,y1), (suunta[0]*(-1), suunta[1]), suunnat)
+                if matriisi[y1][x] and not matriisi[y][x1] and 0 <=  y2 < korkeus\
+                   and not matriisi[y2][x]:
+                    pisteet.append((x1,y1))
+                    self.suunnan_sijoitus((x1,y1), (suunta[0]*(-1), suunta[1]), suunnat)
 
-                if matriisi[y][x1] and not matriisi[y1][x] and 0 <= x2 and x2 < leveys:
-                    if not matriisi[y][x2]:
-                        pisteet.append((x1,y1))
-                        #vanhemmat[(alku)] = (x1,y2)
-                        self.suunnan_sijoitus((x1,y1), (suunta[0], suunta[1]*(-1)), suunnat)
+                if matriisi[y][x1] and not matriisi[y1][x] and 0 <= x2 < leveys\
+                   and not matriisi[y][x2]:
+                    pisteet.append((x1,y1))
+                    self.suunnan_sijoitus((x1,y1), (suunta[0], suunta[1]*(-1)), suunnat)
 
             if suunta[0] != 0 and suunta[1] != 0:
                 loydetyt = []
-                loydetyt += self.haku((x1,y1), (suunta[0],0), matriisi, leveys, korkeus, loppu, suunnat)
+                loydetyt += self.haku((x1,y1), (suunta[0],0), matriisi,
+                                        leveys, korkeus, loppu, suunnat)
                     # vaakahaku: jos diagonaalisuunta on ylä- tai alaviistoon oikealle,
                     # vaakahaku etenee myös oikealle ja päinvastoin
 
-                loydetyt += self.haku((x1,y1), (0,suunta[1]), matriisi, leveys, korkeus, loppu, suunnat)
+                loydetyt += self.haku((x1,y1), (0,suunta[1]), matriisi,
+                                        leveys, korkeus, loppu, suunnat)
                     # pystyhaku: jos diagonaalihaku etenee yläviistoon oikealle tai vasemmalle,
                     # pystyhaku etenee ylös ja päinvastoin
 
@@ -181,8 +226,6 @@ class JPS:
                 if len(loydetyt) > 0:
                     for p in loydetyt:
                         pisteet.append(p)
-                        #vanhemmat[(x1,y1)] = p
-                        #vanhemmat[(alku)] = (x1,y2)
 
             x += suunta[0]
             y += suunta[1]
@@ -190,6 +233,28 @@ class JPS:
                 # oikeaan suuntaan
 
     def pisteiden_etaisyys(self, vanhempi, piste):
+        """Palauttaa kahden pisteen esteettömän etäisyyden
+        """
         x_e = abs(vanhempi[0] - piste[0]) # solmujen x-koordinaattien etäisyys
         y_e = abs(vanhempi[1] - piste[1]) # solmujen y-koordinaattien etäisyys
         return abs(x_e - y_e) + math.sqrt(2) * min(x_e, y_e)
+
+    def hyvaksytyt_koordinaatit(self, alku, loppu, m):
+        """Tarkastetaan, että koordinaatit ovat matriisissa
+        eivätkä osu esteeseen.
+
+        Args:
+            alku (tuple): (x,y)
+            loppu (_type_): (x,y)
+            m (list): matriisi
+
+        Returns:
+            boolean: totuusarvo koordinaattien kelpaavuudesta
+        """
+        if alku[0] < 0 or alku[0] >= len(m[0]) or alku[1] < 0 or alku[1] >= len(m):
+            return False
+        if loppu[0] < 0 or loppu[0] >= len(m[0]) or loppu[1] < 0 or loppu[1] >= len(m):
+            return False
+        if m[alku[1]][alku[0]] or m[loppu[1]][loppu[0]]:
+            return False
+        return True

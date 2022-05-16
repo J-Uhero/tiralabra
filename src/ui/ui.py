@@ -1,13 +1,14 @@
 import time
+from entities.kuva import Kuva
+from entities.kuvaaja import Kuvaaja
+from entities.matriisi import Matriisi
+from enums.algortimi import Algoritmi
+from enums.heuristiikka import Heuristiikka
 from services.a_star import A_star
-from services.algortimi import Algoritmi
-from services.heuristiikka import Heuristiikka
 from services.heuristiikkafunktio import Heuristiikkafunktio as hf
 from services.jps import JPS
-from services.matriisi import Matriisi
-from services.kuva import Kuva
-from services.suorituskykytestaus import Suorituskykytestaus
-from services.kuvaaja import Kuvaaja
+from tests.suorituskykytestaus import Suorituskykytestaus
+# pylint: disable=invalid-name
 
 OTSIKKO = "\nA*- ja JPS-algoritmien vertailu ja visualisointi"
 PAAVALIKKO_VALINNAT = ["1: Aja algoritmi",
@@ -24,10 +25,7 @@ ASETUKSET_VALINNAT = ["1: Aseta algoritmi",
 VIRHE = "Virheellinen syöte"
 
 class Ui:
-    """Ohjelman käyttöliittymä. Käyttöliittymä kehittynee kurssin edetessä.
-    Vaikka kerkesin jo hieman tutkia Pillow-kirjastoa ja suunnitella kartta-
-    reittien piirtämistä, ajattelin kuitenkin tehdä aluksi pelkästään komento-
-    riviltä suoritettavan ja ASCII-visualisoidun käyttöliittymän.
+    """Ohjelman tekstikäyttöliittymä.
     """
 
     def __init__(self):

@@ -1,4 +1,4 @@
-from services.csv_lukija import vakio_csv_lukija as lukija
+from csv_lukija import vakio_csv_lukija as lukija
 
 class Talletus:
     """Luokka, joka operoi CSV-lukijaa halutulla tavalla ja

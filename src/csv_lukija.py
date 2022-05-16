@@ -4,12 +4,20 @@ import os
 POLKU = os.path.dirname(__file__)
 
 class CSVLukija:
-    """Luokka, jonka avulla talletetaan ja luetaan tietoa algoritmien
+    """Luokka, joka toimii rajapintana CSV-tiedoston ja ohjelman välillä.
+    Sen avulla talletetaan ja luetaan tietoa algoritmien
     ajosta CSV-tiedostoon suorituskykytestausta varten
     """
 
     def tiedostonimi(self, nimi):
-        return os.path.join(POLKU, "..", "data", nimi + ".csv")
+        """Palauttaa tiedostonimen kokonaisena polkuna
+
+        Args:
+            nimi (str): merkkijonona pelkkä kuvatiedoston nimi
+        Returns:
+            str: nimi kokonaisena polkuna
+        """
+        return os.path.join(POLKU, "data", nimi + ".csv")
 
     def lue_tiedosto(self, nimi):
         rivit = []

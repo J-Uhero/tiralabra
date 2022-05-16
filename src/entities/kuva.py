@@ -44,6 +44,13 @@ class Kuva:
         kuva.show()
 
     def tulosta_a_star(self, reitti, edeltajat):
+        """Piirtää kuvan A*-algoritmin löytämästä reitistä ja
+        läpikäydytyistä solmuista
+
+        Args:
+            reitti (list): lyhin reitti
+            edeltajat (dict): läpikäydyt solmut
+        """
         kuva = self.alk_kuva.copy()
         for solmu in edeltajat.keys():
             self.varjaa_solmu(kuva, solmu, (250,200,200))
@@ -51,6 +58,13 @@ class Kuva:
         self.nayta_vareissa(kuva)
 
     def tulosta_jps(self, reitti, edeltajat):
+        """piirtää ja näyttää kuvan JPS-algoritmin reitistä
+        ja reiteistä löydettyihin jump pointeihin
+
+        Args:
+            reitti (list): lyhin reitti
+            edeltajat (dict): läpikäydyt jump pointit
+        """
         kuva = self.alk_kuva.copy()
         for seuraaja, edeltaja in edeltajat.items():
             if self.ei_kulmasolmua(seuraaja, edeltaja):
@@ -71,6 +85,16 @@ class Kuva:
         return False
 
     def hae_kulmasolmu(self, vanhempi, seuraaja):
+        """Hakee kahden jump pointin j´välisen kulmasolmun
+        visualisointia varten
+
+        Args:
+            vanhempi (tuple): (x,y)
+            seuraaja (tuple): (x,y)
+
+        Returns:
+            tuple: kulmasolmu (x,y)
+        """
         x_e = seuraaja[0]-vanhempi[0]
         y_e = seuraaja[1]-vanhempi[1]
         kulma = None
@@ -105,9 +129,23 @@ class Kuva:
         piirra.line(pisteet, width=1, fill="red")
 
     def varjaa_solmu(self, kuva, koord, vari):
+        """Värjää yksittäisen solmun
+
+        Args:
+            kuva (image): kuva, johon piirretään
+            koord (tuple): piirrettävän solmun koordinaatti (x,y)
+            vari (tuple): RGB-väri, jolla piirretään
+        """
         kuva.putpixel(koord, vari)
 
     def piirra_vareissa(self, kuva, pisteet, vari="red"):
+        """Piirtää reitin usean solmun välille
+
+        Args:
+            kuva (image): kuva, johon piirretään
+            pisteet (list): reitti listana
+            vari (str): käytettävä väri. Defaults to "red".
+        """
         piirra = ImageDraw.Draw(kuva)
         piirra.line(pisteet, width=1, fill=vari)
 

@@ -27,17 +27,17 @@ class TestAlgoritmi(unittest.TestCase):
                           [0,0,0,0,0,0]]
 
     def test_a_tahti_paasee_paamaaraan_eika_palauta_nonea(self):
-        palautus = self.a_star.aloita((5,0), (0,5), m=self.matriisi2, h=hf.pythagoras)
+        palautus = self.a_star.aloita((5,0), (0,5), m=self.matriisi2, h=hf.pythagoras)[1]
         self.assertIsNotNone(palautus)
 
     def test_a_tahti_palauttaa_oikeat_koordinaatit(self):
         koordinaatit = self.a_star.aloita((0,0), (4,4), m=self.matriisi1, h=hf.pythagoras)[0]
         self.assertEqual([(0,0), (1,1), (1,2), (2,3), (3,3), (4,4)], koordinaatit)
-    
+
     def test_a_tahti_palauttaa_none_kun_reittia_ei_loydy(self):
         palautus = self.a_star.aloita((4,0), (0,4), m=self.matriisi1, h=hf.pythagoras)
         self.assertEqual(([], None, -1), palautus)
-    
+
     def test_a_tahti_palauttaa_tyhjat_arvot_jos_koordineissa_on_este(self):
         palautus1 = self.a_star.aloita((2,2), (0,0), self.matriisi3, h=hf.pythagoras)
         palautus2 = self.a_star.aloita((0,0), (3,3), self.matriisi3, h=hf.pythagoras)
@@ -47,8 +47,25 @@ class TestAlgoritmi(unittest.TestCase):
     def test_a_tahti_loytaa_oikean_paatepisteen(self):
         reitti = self.a_star.aloita((4,1), (1,4), self.matriisi3, h=hf.pythagoras)[0]
         self.assertEqual((1,4), reitti[-1])
-    
-    def test_a_tahti_loytaa_lyhyimman_pituisen_reitin(self):
+
+    def test_a_tahti_palauttaa_lyhimman_reitin(self):
         pituus = self.a_star.aloita((4,1), (1,4), self.matriisi3, h=hf.pythagoras)[2]
         lyhin_reitti = 4*sqrt(2)+2
         self.assertAlmostEqual(lyhin_reitti, pituus)
+
+    def test_a_tahti_antaa_saman_reitin_pituuden_molemmilla_heuristiikoilla(self):
+        palautus1 = self.a_star.aloita((0,0), (0,5), self.matriisi2, h=hf.pythagoras)[2]
+        palautus2 = self.a_star.aloita((0,0), (0,5), self.matriisi2, h=hf.esteeton)[2]
+        self.assertEqual(palautus1, palautus2)
+
+    def test_a_tahti_sama_alku_ja_loppupiste(self):
+        palautus = self.a_star.aloita((0,0), (0,0), self.matriisi2, h=hf.pythagoras)
+        self.assertEqual(palautus, ([(0,0)], {}, 0))
+
+    def test_a_tahti_paatepiste_yli_rajojen(self):
+        palautus = self.a_star.aloita((0,0), (6,0), self.matriisi2, h=hf.pythagoras)
+        self.assertEqual(palautus, ([], None, -1))
+
+    def test_a_tahti_lahtopiste_yli_rajojen(self):
+        palautus = self.a_star.aloita((0,6), (0,0), self.matriisi2, h=hf.pythagoras)
+        self.assertEqual(palautus, ([], None, -1))

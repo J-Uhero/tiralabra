@@ -1,19 +1,23 @@
 from heapq import heappop, heappush
 import math
+# pylint: disable=invalid-name
 
-koord_lisaykset_1 = [(0,-1), (0,1), (-1,0), (1,0)]
-koord_lisaykset_sqrt2 = [(-1,-1), (-1,1), (1,-1), (1,1)]
+KOORD_LISAYKSET_1 = [(0,-1), (0,1), (-1,0), (1,0)]
+KOORD_LISAYKSET_SQRT2 = [(-1,-1), (-1,1), (1,-1), (1,1)]
 
 class A_star:
+    """Luokka A*-algoritmille
+    """
 
     def reitti(self, edeltajat, solmu):
         """haetaan algoritmin reitti edeltajat-hajautustaulusta
         päätesolmun avulla
         """
         reitti = [solmu]
-        while solmu in edeltajat.keys():
+        while solmu in edeltajat:
             solmu = edeltajat[solmu]
-            reitti = [solmu] + reitti
+            reitti.append(solmu)
+        reitti.reverse()
         return reitti
 
     def tarkista_koordinaatit(self, solmu, m, koord_lisaykset):
@@ -40,31 +44,49 @@ class A_star:
                     p.append(uusi)
         return p
 
+    def hyvaksytyt_koordinaatit(self, mista, minne, m):
+        """Tarkastaa, että koordinaatit ovat matriisissa
+        eivätkä osu esteeseen.
+
+        Args:
+            alku (tuple): (x,y)
+            loppu (_type_): (x,y)
+            m (list): matriisi
+
+        Returns:
+            boolean: totuusarvo koordinaattien kelpaavuudesta
+        """
+        if mista[0] < 0 or mista[0] >= len(m[0]) or mista[1] < 0 or mista[1] >= len(m):
+            return False
+        if minne[0] < 0 or minne[0] >= len(m[0]) or minne[1] < 0 or minne[1] >= len(m):
+            return False
+        if m[mista[1]][mista[0]] or m[minne[1]][minne[0]]:
+            return False
+        return True
+
+
     def aloita(self, mista, minne, m, h):
-        """A*-algoritmi. Näyttäisi toimivan nyt oikein.
-        Vaatinee vielä optimointia ja toisteisen koodin siismistä.
+        """Käynnistää A*-algoritmin.
 
         Args:
             mista (tuple): (x,y)-muodossa lähtöpiste/-solmu
             minne (tuple): (x,y)-muodossa kohdepiste/-solmu
-            h (funktio): Funktio, jolla lasketaan h-arvo. Oletuksena h_arvot.
             m (list): matriisi eli lista listoja, jotka kuvaavat kartastoa ja
-            sen pisteitä. Oletuksena m1.
+            sen pisteitä
+            h (method): funktio heuristiikan eli h-arvon laskemiseen
 
         Palauttaa:
-            Reitti-funktion, ja sen palautusarvot, jos reitti löydetään tai None,
-            jos reittiä ei löydetä.
+            tuple: reitti listana, sanakirja edeltäjäsolmuista, reitin pituus
         """
-        if m[mista[1]][mista[0]] or m[minne[1]][minne[0]]:
+
+        if not self.hyvaksytyt_koordinaatit(mista, minne, m):
             return [], None, -1
 
         keko = []
-        heappush(keko, (0, mista))
+        heappush(keko, (h(mista, minne), mista))
         edeltajat = {}
         g = {}
         g[mista] = 0
-        f = {}
-        f[mista] = h(mista, minne)
         sqrt2 = math.sqrt(2)
 
         while len(keko) > 0:
@@ -72,25 +94,23 @@ class A_star:
             if nyk[1] == minne:
                 return self.reitti(edeltajat, minne), edeltajat, g[minne]
 
-            for seur_k in self.tarkista_koordinaatit(nyk[1], m, koord_lisaykset_1):
+            for seur_k in self.tarkista_koordinaatit(nyk[1], m, KOORD_LISAYKSET_1):
                 mahd_g = g[nyk[1]] + 1
-                if seur_k not in g.keys():
+                if seur_k not in g:
                     g[seur_k] = math.inf
                 if mahd_g < g[seur_k]:
                     g[seur_k] = mahd_g
                     f_arvo = mahd_g + h(seur_k, minne)
-                    f[seur_k] = f_arvo
                     edeltajat[seur_k] = nyk[1]
                     heappush(keko, (f_arvo, seur_k))
 
-            for seur_k in self.tarkista_koordinaatit(nyk[1], m, koord_lisaykset_sqrt2):
+            for seur_k in self.tarkista_koordinaatit(nyk[1], m, KOORD_LISAYKSET_SQRT2):
                 mahd_g = g[nyk[1]] + sqrt2
-                if seur_k not in g.keys():
+                if seur_k not in g:
                     g[seur_k] = math.inf
                 if mahd_g < g[seur_k]:
                     g[seur_k] = mahd_g
                     f_arvo = mahd_g + h(seur_k, minne)
-                    f[seur_k] = f_arvo
                     edeltajat[seur_k] = nyk[1]
                     heappush(keko, (f_arvo, seur_k))
         return [], None, -1

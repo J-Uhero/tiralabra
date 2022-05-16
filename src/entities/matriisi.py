@@ -1,5 +1,6 @@
 from random import randint
-from services.kuva import Kuva
+from entities.kuva import Kuva
+# pylint: disable=invalid-name
 
 class Matriisi:
     """Luokka kuvan analysointia varten ja sen muuttamiseksi matriisiksi,
@@ -12,6 +13,14 @@ class Matriisi:
         self.matriisi = self.alusta(0)
 
     def alusta(self, arvo):
+        """Alustaa solmuja ja esteitä kuvaavan matriisin
+
+        Args:
+            arvo (int): Kokonaisluku, joka kuvaa karttakuvan esteväriä (0 on musta)
+
+        Returns:
+            list: palauttaa kaksiulotteisen listan eli matriisin
+        """
         m = []
         for y in range(self.korkeus):
             m.append([False]*self.leveys)
@@ -20,30 +29,41 @@ class Matriisi:
                     m[y][x] = True
         return m
 
-    def alusta_matriisi(self):
-        self.matriisi = self.aseta_arvot(0)
-
-    def aseta_arvot(self, arvo):
-        m = []
-        for y in range(self.korkeus):
-            m.append([])
-            for x in range(self.leveys):
-                m[y].append(self.kuva.vertaa_arvoa((x,y), arvo))
-        return m
-
     def anna_matriisi(self):
         return self.matriisi
 
     def arvo(self, koord):
+        """Palauttaa matriisin arvon tietyssä koordinaatissa
+
+        Args:
+            koord (tuple): (x,y)
+
+        Returns:
+            boolen: totuusarvo matriisissa eli onko koordinaatissa estettä
+        """
         if self.koordinaatti_matriisissa(koord):
             return self.matriisi[koord[0]][koord[1]]
         return False
 
     def koordinaatti_matriisissa(self, koord):
+        """Tarkastaa, että koordinaatti on matriisin sisällä
+
+        Args:
+            koord (tupe): (x,y)
+
+        Returns:
+            boolean: totuusarvo, onko koordinaatti matriisissa
+        """
         return 0 <= koord[0] and koord[0] < self.leveys and \
                0 <= koord[1] and koord[1] < self.korkeus
 
     def anna_satunnaiset_pisteet(self):
+        """Palauttaa satunnaiset alku- ja loppupisteet matriisista,
+        jotka eivät osu esteeseen
+
+        Returns:
+            tuple: (x,y), (x,y)
+        """
         x1 = x2 = y1 = y2 = 0
         while True:
             x1 = randint(0, self.leveys-1)
