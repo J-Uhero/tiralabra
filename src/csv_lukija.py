@@ -48,5 +48,4 @@ class CSVLukija:
         except FileNotFoundError:
             return
 
-
 vakio_csv_lukija = CSVLukija()
