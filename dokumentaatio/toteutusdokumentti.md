@@ -10,23 +10,23 @@ Parannusehdotuksena projektiini sanoisin, että A*:ia ja JPS:ää voisi yhdenmuk
 
 Lähteet:
 
-* ![A Visual Explanation of Jump Point Search, Nathan Witmer](https://zerowidth.com/2013/a-visual-explanation-of-jump-point-search.html)
+* [A Visual Explanation of Jump Point Search, Nathan Witmer](https://zerowidth.com/2013/a-visual-explanation-of-jump-point-search.html)
 
-* ![A* Algorithm in AI | A Star Search Algorithm | Artificial Intelligence Tutorial | Edureka, _Youtube_.](https://www.youtube.com/watch?v=amlkE0g-YFU)
+* [A* Algorithm in AI | A Star Search Algorithm | Artificial Intelligence Tutorial | Edureka, _Youtube_.](https://www.youtube.com/watch?v=amlkE0g-YFU)
 
-* ![A* search algorithm, _Wikipedia_.](https://en.wikipedia.org/wiki/A*_search_algorithm)
+* [A* search algorithm, _Wikipedia_.](https://en.wikipedia.org/wiki/A*_search_algorithm)
 
-* ![A* Search Algorithm, _Geeks For Geeks_.](https://www.geeksforgeeks.org/a-search-algorithm/)
+* [A* Search Algorithm, _Geeks For Geeks_.](https://www.geeksforgeeks.org/a-search-algorithm/)
 
-* ![Implementation of A*, Amit Patel](https://www.redblobgames.com/pathfinding/a-star/implementation.html)
+* [Implementation of A*, Amit Patel](https://www.redblobgames.com/pathfinding/a-star/implementation.html)
 
-* ![Jump Point Search: Fast A* Pathfinding for Uniform Cost Grids, Albert Hofkamp](https://www.gamedev.net/tutorials/programming/artificial-intelligence/jump-point-search-fast-a-pathfinding-for-uniform-cost-grids-r4220/)
+* [Jump Point Search: Fast A* Pathfinding for Uniform Cost Grids, Albert Hofkamp](https://www.gamedev.net/tutorials/programming/artificial-intelligence/jump-point-search-fast-a-pathfinding-for-uniform-cost-grids-r4220/)
 
-* ![Online Graph Pruning for Pathfinding on Grid Maps, Harabor, D. and Grastien, A.](https://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
+* [Online Graph Pruning for Pathfinding on Grid Maps, Harabor, D. and Grastien, A.](https://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
 
-* ![Single Agent Search Video 39: Canonical Orderings on Grids, Sturtevant N., Youtube](https://www.youtube.com/watch?v=rskXf8kO5Lw)
+* [Single Agent Search Video 39: Canonical Orderings on Grids, Sturtevant N., Youtube](https://www.youtube.com/watch?v=rskXf8kO5Lw)
 
-* ![Single Agent Search Video 40: Jump Point Search and Other Algorithms Using Canonical Orderings, Sturtevant N., Youtube](https://www.youtube.com/watch?v=__ZLnTwYNPk)
+* [Single Agent Search Video 40: Jump Point Search and Other Algorithms Using Canonical Orderings, Sturtevant N., Youtube](https://www.youtube.com/watch?v=__ZLnTwYNPk)
 
 Karttakuvan lähde:
 
