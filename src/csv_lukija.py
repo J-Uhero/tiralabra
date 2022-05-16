@@ -41,4 +41,12 @@ class CSVLukija:
             print("CSV-tiedostoon talletus ei onnistunut")
             return False
 
+    def tyhjenna_tiedosto(self, nimi):
+        try:
+            with open(self.tiedostonimi(nimi), "w"):
+                pass
+        except FileNotFoundError:
+            return
+
+
 vakio_csv_lukija = CSVLukija()

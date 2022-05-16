@@ -176,7 +176,7 @@ class Ui:
 
     def aseta_hakukoordinaatit(self):
         while True:
-            print("\n1: Alkupiste\n2: Päätepiste\n3: Satunnaiset\n0: Palaa")
+            print("\n1: Alkupiste\n2: Päätepiste\n3: Satunnaiset pisteet\n0: Palaa")
             syote = input("> ")
             if syote == "0":
                 break
@@ -226,7 +226,7 @@ class Ui:
 
     def suorituskyky(self):
         while True:
-            print("\n1: Tulosta kuvaajat\n2: Testaa\n0: Palaa")
+            print("\n1: Tulosta kuvaajat\n2: Testaa\n3: Tyhjennä muisti\n0: Palaa")
             syote = input("> ")
             if syote == "0":
                 break
@@ -234,6 +234,8 @@ class Ui:
                 self.nayta_kuvaajat()
             elif syote == "2":
                 self.testaa_suorituskykya()
+            elif syote == "3":
+                self.tyhjenna_muisti()
             else:
                 print(VIRHE)
 
@@ -257,5 +259,14 @@ class Ui:
                 print("Epäkelpo luku")
         except ValueError:
             print(VIRHE)
+
+    def tyhjenna_muisti(self):
+        print("\nHaluatko varmasti tyhjentää muistin?\n1: Kyllä\n0: Ei")
+        syote = input("> ")
+        if syote == "1":
+            talletus.tyhjenna(self.kuva.anna_tiedostonimi())
+            print("Muisti tyhjennetty")
+        else:
+            print("Muistia ei tyhjennetty")
 
 vakio_ui = Ui()

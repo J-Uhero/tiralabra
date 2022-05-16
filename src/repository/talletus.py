@@ -18,4 +18,7 @@ class Talletus:
     def palauta_lista(self, nimi):
         return lukija.lue_tiedosto(nimi)
 
+    def tyhjenna(self, nimi):
+        lukija.tyhjenna_tiedosto(nimi)
+
 vakio_talletus = Talletus()
