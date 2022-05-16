@@ -31,6 +31,4 @@ Päivä | Aika (h) | Mitä tein
 15.05 | 7 | Viimeistelyä, dokumenttien päivitäämistä
 16.05 | 7 | Viimeistelyä, dokumenttien päivittämistä
 
-Yht. 112 h
-
-(viimeistelin työtä vielä 16. päivä klo. 0:59 jälkeen, sillä olin ymmärtänyt ohjaajan sanomisista esittelytilaisuudessa, ettei iolmoitettu dl ei ole täysin ehdoton, sillä töitä tuskin arvostellaan aivan heti tämän jälkeen, joten ei haittaa vaikka työn päivitys vielä liukuisi yli tuosta mainitusta ajankohdasta)
+Yht. 113 h
