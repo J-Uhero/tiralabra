@@ -4,7 +4,7 @@ Ohjelman testauksen jakaisin neljään eri kohtaan: yksikkötestaukseen pytest-k
 
 Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien toiminnan oikeellisuutta. Yksikkötestien testikattavuus näyttää tältä:
 
-![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus1.png)
+![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus2.png)
 
 Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää karttakuvissa reitit ja käydyt solmut/jump pointit.
 
@@ -12,7 +12,7 @@ Suorituskykytestauksessa olen ajanut A*:n ja JPS:n sekä pythagoran että esteet
 
 Kaappaukset suorituskykytestauksesta:
 
-![suorituskykytestaus1](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus2.png)
+![suorituskykytestaus2](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus1.png)
 
 Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
 
