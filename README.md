@@ -21,4 +21,4 @@ A*- ja JSP-algoritmien vertailu reitinhaussa
 * [Viikkoraportti 6](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/viikkoraportit/viikkoraportti6.md)
 
 ## Release
-* [Ohjelman 1. release]
+* [Ohjelman 1. release](https://github.com/J-Uhero/tiralabra/releases/tag/1.0.0)
