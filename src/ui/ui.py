@@ -46,7 +46,7 @@ class Ui:
         asetukset = f"\nAlgoritmi: {self.algoritmi.value}, Heuristiikka: "\
                     f"{self.heuristiikka.value}\n"\
                     f"Lähtö: {self.lahtopiste}, Päätös: {self.paatospiste}, "\
-                    f"Karttakuva: {self.kuva.anna_tiedostonimi()}"
+                    f"Karttakuva: {self.kuva.anna_tiedostonimi()}\n"
         print(asetukset)
 
     def paavalikko(self):
@@ -100,8 +100,9 @@ class Ui:
             if algoritmi == Algoritmi.JPS:
                 self.kuva.tulosta_jps(reitti, edeltajat)
 
-            talletus.talleta_rivi(self.kuva.anna_tiedostonimi(), algoritmi, heuristiikka,\
-                self.lahtopiste, self.paatospiste, pituus, lopetus-aloitus, len(edeltajat))
+            if heuristiikka is not Heuristiikka.MANHATTAN:
+                talletus.talleta_rivi(self.kuva.anna_tiedostonimi(), algoritmi, heuristiikka,\
+                    self.lahtopiste, self.paatospiste, pituus, lopetus-aloitus, len(edeltajat))
         else:
             print("\nEi reittiä löydettävissä")
 
