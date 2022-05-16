@@ -89,7 +89,7 @@ class TestAlgoritmi(unittest.TestCase):
         palautus = self.jps.aloita((0,6), (0,0), self.matriisi2, h=hf.pythagoras)
         self.assertEqual(palautus, ([], None, -1))
 
-    def test_haku_kiertää_esteen(self):
+    def test_haku_kiertaa_esteen(self):
         palautus1 = self.jps.aloita((5,5), (0,0), self.matriisi5, h=hf.pythagoras)
         palautus2 = self.jps.aloita((3,5), (5,0), self.matriisi5, h=hf.pythagoras)
         self.assertEqual(palautus1[0][-1], (0,0))
