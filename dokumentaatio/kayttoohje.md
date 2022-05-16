@@ -1,11 +1,5 @@
 # Käyttöohje
 
-Viikko 2:
-
-Tällä hetkellä ohjelman voi ajaa/käynnistää, mutta se ei muuta kuin tulosta valmiit matriisit ja A*-algoritmin hakeman reitit niissä, joten ohjelmassa ei ole vielä juuri käytettävää.
-
-Siitä huolimatta, jos ohjelman haluaa käynnistää ja ajaa, se onnistuu näin:
-
 Ohjelman riippuvuudet saa asennettua komennolla
 ```bash
 poetry install
@@ -15,3 +9,27 @@ Ohjelma käynnistetään komennolla
 ```bash
 poetry run invoke start
 ```
+
+Käynnistämisen jälkeen ohjelmaa operoidaan komentoriviltä. Valikossa navigointiin käytetään syötteenä numeroita valikon ohjeiden mukaan. 
+
+Testien ajaminen:
+```bash
+poetry run invoke tests
+```
+
+Kattavuustestauksen ajaminen:
+```bash
+poetry run invoke coverage
+```
+
+Kattavuusraportin teko
+```bash
+poetry run invoke coverage-report
+```
+
+Koodin pylint-analyysi:
+```bash
+poetry run invoke lint
+```
+
+

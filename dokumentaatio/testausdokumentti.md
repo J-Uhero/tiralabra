@@ -1,7 +1,30 @@
 # Testausdokumentti
 
-Viikon 2 aikana testattavaa on tullut yhden algoritmin (A*) verran. Pari sen toimivuutta testaavaa yksikkötestiä antoi tällaisen raportin:
+Ohjelman testauksen jakaisin neljään eri kohtaan: yksikkötestaukseen pytest-kirjaston avulla, suorituskykytestaukseen, testaukseen kokeilemalla ohjelman toimintaa käytännössä ja koodin staattiseen analyysiin pylint-kirjaston avulla.
 
-![viikon 2 testikattavuus](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/viikon2-testikattavuus.png)
+Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien toiminnan oikeellisuutta. Yksikkötestien testikattavuus näyttää tältä:
 
-Muita luokkia on myös aloitettu, mutta koska ajettava ohjelma ei niitä käytä ja ne ovat hyvin keskeneräisiä, jätin ne tämän raportin ulkopuolelle.
+![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus1.png)
+
+Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää reitit ja käydyt solmut.
+
+Suorituskykytestauksessa olen ajanut A*:n ja JPS:n sekä pythagoran että esteettömän etäisyyden heuristiikoilla yhteensä yli tuhat kertaa kutakin algoritmia ja heuristiikkaa kohden satunnaisilla alku- ja päätepisteillä. Samalla olen tulostanut tietoja testin etenemisestä, käytetyistä alku- ja päätepisteistä ja siitä, että ne ovat varmasti esteettömissä kohdissa. Tämän avulla olen saanut sekä tietoa suorituskyvystä, että testattua algoritmin oikeaa toimintaa ja korjattua satunnaisten pisteiden ajossa ilmenneitä bugeja.
+
+Kaappaukset suorituskykytestauksesta:
+
+![suorituskykytestaus1](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus1.png)
+
+Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
+
+![suorituskykytestaus2](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus2.png)
+![suorituskykytestaus3](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus3.png)
+
+Tarkempi kuva saman kuvaajan lyhyistä etäisyyksistä:
+
+![suorituskykytestaus4](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus4.png)
+![suorituskykytestaus5](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus5.png)
+![suorituskykytestaus6](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus6.png)
+![suorituskykytestaus7](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus7.png)
+![suorituskykytestaus8](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/suorituskykytestaus-kaappaus8.png)
+
+Pylintin arvosana koodin siisteydestä ja asianmukaisuudesta on nyt 8,32. Jotkin asiat, jotka eivät ole menneet pylint-sääntöjen mukaan, ovat mielestäni perusteltuja algoritmien toiminnassa, kuten lyhyet muuttujien nimet ja hieman toisteinen koodi, koska algoritmin tehokas toiminta on pääasia.
