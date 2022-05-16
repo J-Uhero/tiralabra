@@ -21,6 +21,14 @@ Päivä | Aika (h) | Mitä tein
 28.04 | 2 | JPS:n korjailua
 29.04 | 2 | JPS:n taitepisteiden talletus/laskeminen, vertaisarviointi
 30.04 | 2,5 | Vertaisarviointi, A*:n testien päivitys, viikkoraportti
+04.05 | 2 | Reitin visualisoinnin parantelua
+05.05 | 5 | Käyttöliittymän uudistamista
+10.05 | 4 | Käyttöliittymän parantelua
+11.05 | 1 | Suorituskykytestauksen aloittelua
+12.05 | 7 | Suorituskykytestausta, debuggaamista, datan csv-talletusta, valmistautumista esitelmään
+13.05 | 2 | Työn esittely
+14.05 | 2 | Suorituskykytestauksen lisäämistä kayttöliittymään, testien tekoa
+15.05 | 7 | Viimeistelyä, dokumenttien päivitäämistä
+16.05 | 7 | Viimeistelyä, dokumenttien päivittämistä
 
-
-Yht. 72 h
+Yht. 113 h
