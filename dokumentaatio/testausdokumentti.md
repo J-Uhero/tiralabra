@@ -2,11 +2,11 @@
 
 Ohjelman testauksen jakaisin neljään eri kohtaan: yksikkötestaukseen pytest-kirjaston avulla, suorituskykytestaukseen, testaukseen kokeilemalla ohjelman toimintaa käytännössä ja koodin staattiseen analyysiin pylint-kirjaston avulla.
 
-Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien toiminnan oikeellisuutta. Yksikkötestien testikattavuus näyttää tältä:
+Yksikkötestaus testaa ohjelman keskeisintä toiminnallisuutta eli algoritmien toiminnan oikeellisuutta erilaisissa tapauksissa, myös kun algoritmi saa virheellisiä syötteitä. Yksikkötestit pystyy ajamaan komentoriviltä käsin "poetry run invoke tests" -komennolla. Yksikkötestien testikattavuus näyttää tältä:
 
 ![testikattavuusraportti](https://github.com/J-Uhero/tiralabra/blob/main/dokumentaatio/kuvat/testikattavuusraportti-kaappaus2.png)
 
-Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää karttakuvissa reitit ja käydyt solmut/jump pointit.
+Käyttöliittymä ja visualisointi on jätetty yksikkötestien ulkopuolelle ja niitä on testattu käytännössä kokeilemalla. Niiden tehtävänä on mahdollistaa helppo algoritmien ajaminen ja näyttää karttakuvissa reitit ja käydyt solmut/jump pointit. Reitin visuaalisesta esitystavasta oli muutenkin hyötyä ohjelman testaamisessa, kun näki suoraan kartalta, millainen piirtynyt reitti on ja miten haku on edennyt.
 
 Suorituskykytestauksessa olen ajanut A*:n ja JPS:n sekä pythagoran että esteettömän etäisyyden heuristiikoilla yhteensä yli tuhat kertaa kutakin algoritmia ja heuristiikkaa kohden satunnaisilla alku- ja päätepisteillä. Samalla olen tulostanut tietoja testin etenemisestä, käytetyistä alku- ja päätepisteistä ja ovatko ne ovat varmasti esteettömissä kohdissa sekä varmistanut, että A* ja JPS:n löytämä lyhin reitti on sama. Tämän avulla olen saanut sekä tietoa suorituskyvystä, että testattua algoritmin oikeaa toimintaa. Rajasin Manhattan-heuristiikan pois suorituskykytestauksesta, koska se ei saavuta aina lyhyintä etäisyyttä eikä ole vertailukelpoinen muiden heuristiikkojen kanssa. Manhattan-etäisyyttä voi kyllä ohjelmassa kokeilla, jos sen valitsee varta vasten asetuksista ajettavaksi heuristiikaksi.
 
